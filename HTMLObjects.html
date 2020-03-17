@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--    Script-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="assets/js/blockly_compressed.js"></script>
+    <script src="assets/js/blocks_compressed.js"></script>
+    <script src="assets/js/javascript_compressed.js"></script>
+    <script src="assets/js/en.js"></script>
+</head>
+<body>
+<div id="blocklyArea" style="height: 700px; width: 800px;"></div>
+<xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
+    <category name="A-Frame" expanded="true">
+        <block type="button" name="button"></block>
+    </category>
+</xml>
+</body>
+<script>
+
+    Blockly.defineBlocksWithJsonArray([
+        {
+            type:"button",
+            message0:"Button %1",
+            args0:[
+                {
+                    type:"field_input",
+                    name: "NAME",
+                    text:"Button"
+                }
+            ],
+            previousStatement:"null",
+            nextStatement:"null"
+        },
+    ])
+    Blockly.JavaScript['button'] = function (block) {
+        let $button = $("<button>",{id:"id"});
+        return $button
+    }
+
+    $(document).ready(function() {
+        let toolbox = document.getElementById("toolbox");
+        // $('#ar_scene').on('load', function(){
+        //     let btn1 = $('#ar_scene').contents().find("#stage1");
+        //     btn1.click(function () {
+        //         alert("Ohhh")
+        //     })
+        // });
+        let blocklyArea = document.getElementById("blocklyArea");
+        let options = {
+            toolbox:toolbox,
+            media:'assets/media/'
+        };
+        let workspace = Blockly.inject(blocklyArea, options);
+        // let xml_text = localStorage.getItem('blockly-ar-code');
+        // if(xml_text){
+        //     let xml = Blockly.Xml.textToDom(xml_text);
+        //     Blockly.Xml.domToWorkspace(xml, workspace);
+        // }
+        Blockly.svgResize(workspace);
+        workspace.addChangeListener(function (event) {
+            let code = Blockly.mainWorkspace();
+            console.log(code)
+        })
+    });
+</script>
+</html>

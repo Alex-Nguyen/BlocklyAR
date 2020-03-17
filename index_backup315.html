@@ -20,30 +20,12 @@
 </head>
 <body>
 <div class="container-fluid">
-    <button id="btnUpdate">Update</button>
     <div class="row">
         <div class="col-7 p-3">
             <div id="blocklyArea" style="height: 700px; width: 800px;"></div>
             <xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
                 <category name="A-Frame" expanded="true">
-                    <category name="Variables" custom="VARIABLE" colour="%{BKY_VARIABLES_HUE}">
-                    </category>
                     <block type="ar_scene" name="vr_scene"></block>
-                    <block type="register_component" name="register_component"></block>
-                    <block type="component_init" name="component_init"></block>
-                    <block type="component_init_function" name="component_init_function"></block>
-                    <block type="component_tick" name="component_tick"></block>
-                    <block type="move_object" name="move_object"></block>
-                    <block type="set_object_animation" name="set_object_animation"></block>
-                    <block type="move_object_finish" name="move_object_finish"></block>
-                    <block type="trigger_behavior" name="trigger_behavior"></block>
-                    <block type="play_audio" name="play_audio"></block>
-                    <block type="wait_second" name="wait_second"></block>
-                    <block type="behavior" name="behavior"></block>
-                    <block type="print" name="print"></block>
-                    <block type="button" name="button"></block>
-                    <block type="script" name="script"></block>
-                    <block type="nav_bar" name="nav_bar"></block>
                     <block type="marker" name="marker"></block>
                     <block type="ar_preset" name="preset"></block>
                     <block type="src_gltf" name="gltf"></block>
@@ -118,29 +100,22 @@
         }
         Blockly.svgResize(workspace);
         workspace.addChangeListener(function (event) {
-
             let code = HtmlGenerator.workspaceToCode(workspace);
-            // var jQ = $($.parseHTML(code))
-            // console.log(jQ)
-
-            // let doc = $('#ar_scene').contents();
-            // doc.find("body").empty();
-            // doc.find("body").append(code)
-
             document.getElementById("sourceCode").innerText = code;
+            let doc = $('#ar_scene').contents();
+            doc.find("*[project='visAR']").remove();
+            doc.find("#visAR").append(code)
+
+
+
+
+
+            // console.log(code)
+
 
             let xml = Blockly.Xml.workspaceToDom(workspace);
             let xml_text = Blockly.Xml.domToText(xml);
             localStorage.setItem('blockly-ar-code', xml_text);
-        })
-        $("#btnUpdate").click(function () {
-            let code = HtmlGenerator.workspaceToCode(workspace);
-            // var jQ = $($.parseHTML(code))
-            // console.log(jQ)
-
-            let doc = $('#ar_scene').contents();
-            doc.find("body").empty();
-            doc.find("body").append(code)
         })
     });
 

@@ -21,12 +21,12 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="HTML" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../blockly" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Coding\VisualAR\assets\js" />
       <recent name="D:\Coding\VisualAR" />
+      <recent name="D:\Coding\VisualAR\assets\js" />
       <recent name="D:\Coding\VisualAR\assets\markers" />
       <recent name="D:\Coding\VisualAR\assets\patterns" />
       <recent name="D:\Coding\VisualAR\assets" />
@@ -57,7 +57,8 @@
       <workItem from="1583482328723" duration="7457000" />
       <workItem from="1583646592999" duration="41000" />
       <workItem from="1583816087082" duration="10028000" />
-      <workItem from="1583983074731" duration="37589000" />
+      <workItem from="1583983074731" duration="38438000" />
+      <workItem from="1584257140590" duration="48263000" />
     </task>
     <servers />
   </component>
@@ -69,8 +70,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/assets/js/aframe_blocks.js</url>
-          <line>131</line>
-          <properties lambdaOrdinal="-1" />
+          <line>132</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

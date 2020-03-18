@@ -13,6 +13,7 @@ Blockly.defineBlocksWithJsonArray([
             }
         ],
         previousStatement: "null",
+        nextStatement:"null",
         "colour": 355,
         "tooltip": "",
         "helpUrl": ""
@@ -57,6 +58,26 @@ Blockly.defineBlocksWithJsonArray([
         ],
         output: "attribute"
     },
+
+    {
+        type: "animation",
+        message0: "Animation %1",
+        args0: [
+            {
+                type: "field_dropdown",
+                name: "ANIMATION",
+                options: [
+                    ["animation_0", 'animation_0'],
+                    ["Idle", 'Idle'],
+                    ["Attack", 'Attack'],
+                    ["Walking", 'Walking'],
+                    ["Running", 'Running'],
+                    ["Resting", 'Resting'],
+                ]
+            }
+        ],
+        output: "null"
+    },
     {
         type: "src_gltf",
         message0: "Model %1",
@@ -66,7 +87,8 @@ Blockly.defineBlocksWithJsonArray([
                 name: "src",
                 options: [
                     ["CesiumMan", 'assets/models/CesiumMan.gltf'],
-                    ["kanji", 'kanji'],
+                    ["Union Troop", 'assets/models/FinalUnion.glb'],
+                    ["Confederate", 'assets/models/confTroop.glb'],
                 ]
             }
         ],
@@ -83,6 +105,12 @@ Blockly.defineBlocksWithJsonArray([
                     [{src: "assets/markers/letterA.png", width: 25, height: 25}, 'assets/patterns/letterA.patt'],
                     [{src: "assets/markers/letterB.png", width: 25, height: 25}, 'assets/patterns/letterB.patt'],
                     [{src: "assets/markers/letterC.png", width: 25, height: 25}, 'assets/patterns/letterC.patt'],
+                    [{src: "assets/markers/pattern-pos1.png", width: 25, height: 25}, 'assets/patterns/pattern-pos1.patt'],
+                    [{src: "assets/markers/pattern-pos2.png", width: 25, height: 25}, 'assets/patterns/pattern-pos2.patt'],
+                    [{src: "assets/markers/pattern-pos3.png", width: 25, height: 25}, 'assets/patterns/pattern-pos3.patt'],
+                    [{src: "assets/markers/pattern-pos4.png", width: 25, height: 25}, 'assets/patterns/pattern-pos4.patt'],
+                    [{src: "assets/markers/pattern-pos5.png", width: 25, height: 25}, 'assets/patterns/pattern-pos5.patt'],
+                    [{src: "assets/markers/pattern-pos6.png", width: 25, height: 25}, 'assets/patterns/pattern-pos6.patt'],
 
                 ]
             }
@@ -189,7 +217,11 @@ Blockly.defineBlocksWithJsonArray([
                 name: "clips",
                 options: [
                     ["animation_0", 'animation_0'],
-                    ["animation_1", 'animation_1'],
+                    ["Idle", 'Idle'],
+                    ["Attack", 'Attack'],
+                    ["Walking", 'Walking'],
+                    ["Running", 'Running'],
+                    ["Resting", 'Resting'],
                 ]
             }
         ],
@@ -215,10 +247,16 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         "type": "nav_bar",
-        "message0": "Navigation %1 %2",
+        "message0": "Nav-bar POS %1 %2",
         "args0": [
             {
-                type: "input_dummy"
+                type: "field_dropdown",
+                name: "POSITION",
+                options: [
+                    ["TOP", 'fixed-top'],
+                    ["BOTTOM", 'fixed-bottom']
+
+                ]
             },
             {
                 type: "input_statement",
@@ -226,6 +264,7 @@ Blockly.defineBlocksWithJsonArray([
             }
         ],
         "colour": 355,
+        previousStatement:"null",
         nextStatement: "null",
         "tooltip": "",
         "helpUrl": ""
@@ -360,8 +399,25 @@ Blockly.defineBlocksWithJsonArray([
         colour: 90
     },
     {
+        type: "display_message",
+        message0: "Display message %1 %2",
+        args0: [
+            {
+                type: "input_dummy"
+            },
+            {
+                type:"field_input",
+                name:"NAME",
+                text: "Hello world",
+            }
+        ],
+        previousStatement: "null",
+        nextStatement:"null",
+        colour: 90
+    },
+    {
         type: "move_object",
-        message0: "Move Object %1 from %2 to %3",
+        message0: "Move Object %1 from %2 to %3 off set %4",
         args0: [
             {    // Beginning of the field variable dropdown
                 "type": "field_variable",
@@ -378,6 +434,11 @@ Blockly.defineBlocksWithJsonArray([
                 "name": "END",    // Static name of the field
                 "variable": "item"    // Given at runtime
             },
+
+            {    // Beginning of the field variable dropdown
+                "type": "input_value",
+                "name": "OFFSET",    // Static name of the field
+            }
         ],
         previousStatement: "null",
         nextStatement:"null",
@@ -393,9 +454,8 @@ Blockly.defineBlocksWithJsonArray([
                 "variable": "item"    // Given at runtime
             },
             {    // Beginning of the field variable dropdown
-                "type": "field_variable",
+                "type": "input_value",
                 "name": "ANIMATION",    // Static name of the field
-                "variable": "item"    // Given at runtime
             }
         ],
         previousStatement: "null",
@@ -443,8 +503,17 @@ Blockly.defineBlocksWithJsonArray([
                 type: "field_dropdown",
                 name: "audio",
                 options: [
-                    ["audio1", 'assets/audio/message01.mp3'],
-                    ["audio2", 'assets/audio/message02.mp3'],
+                    ["stage1", 'assets/audio/message01.mp3'],
+                    ["stage2", 'assets/audio/message02.mp3'],
+                    ["stage3", 'assets/audio/message03.mp3'],
+                    ["stage4", 'assets/audio/message04.mp3'],
+                    ["stage5", 'assets/audio/message05.mp3'],
+                    ["stage6", 'assets/audio/message06.mp3'],
+                    ["stage7", 'assets/audio/message07.mp3'],
+                    ["stage8", 'assets/audio/message08.mp3'],
+                    ["attack", 'assets/audio/Sword.mp3'],
+                    ["Cannon", 'assets/audio/Cannon.mp3'],
+                    ["Gunfight", 'assets/audio/gunfight2.mp3'],
                 ]
             }
         ],

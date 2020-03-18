@@ -21,6 +21,7 @@
 <body>
 <div class="container-fluid">
     <button id="btnUpdate">Update</button>
+    <button id="btnExport">Export</button>
     <div class="row">
         <div class="col-7 p-3">
             <div id="blocklyArea" style="height: 700px; width: 800px;"></div>
@@ -38,6 +39,8 @@
                     <block type="move_object_finish" name="move_object_finish"></block>
                     <block type="trigger_behavior" name="trigger_behavior"></block>
                     <block type="play_audio" name="play_audio"></block>
+                    <block type="display_message" name="display_message"></block>
+                    <block type="animation" name="animation"></block>
                     <block type="wait_second" name="wait_second"></block>
                     <block type="behavior" name="behavior"></block>
                     <block type="print" name="print"></block>
@@ -89,7 +92,7 @@
 
         </div>
         <div class="col-5 pr-3 pt-3">
-            <iframe id="ar_scene" src="ar.html" allow="camera"  width="500px" height="400px"></iframe>
+            <iframe allowfullscreen id="ar_scene" src="ar.html" allow="camera"  width="500px" height="400px"></iframe>
             <pre id="sourceCode"></pre>
         </div>
     </div>
@@ -141,6 +144,20 @@
             let doc = $('#ar_scene').contents();
             doc.find("body").empty();
             doc.find("body").append(code)
+        })
+        $("#btnExport").click(function () {
+            let html = "<!DOCTYPE html>\n" ;
+            html += "<html lang='en'>\n";
+            html += "<head>\n";
+            html += $('#ar_scene').contents().find("head").html();
+            html += "</head>\n";
+            html += "<body>\n";
+
+            let code = HtmlGenerator.workspaceToCode(workspace);
+            html += code;
+            html += "</body>\n";
+            html += "</html>\n";
+            window.open("data:application/octet-stream," + encodeURIComponent(html), 'webseite.html');
         })
     });
 

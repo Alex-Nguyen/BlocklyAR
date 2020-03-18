@@ -18,7 +18,8 @@ HtmlGenerator['ar_scene'] = function (block) {
 
 HtmlGenerator['nav_bar'] = function (block) {
     let statement_content = HtmlGenerator.statementToCode(block,"content");
-    return `<div class="fixed-top mt-4">\n <ul class="nav nav-pills nav-justified">${statement_content}\n</ul>\n</div>\n`;
+    let pos = block.getFieldValue("POSITION");
+    return `\n<div class="${pos} mt-4">\n <ul class="nav nav-pills nav-justified">${statement_content}\n</ul>\n</div>\n`;
 };
 
 HtmlGenerator['marker'] = function (block) {
@@ -79,7 +80,7 @@ HtmlGenerator['gltf'] = function (block) {
     Blockly.JavaScript.init(Blockly.mainWorkspace)
     let id = Blockly.JavaScript.variableDB_.getName(
         block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-    return `<a-gltf-model id="${id}" project='visAR' ${pos} ${rot}${src}${ani}></a-gltf-model>`;
+    return `<a-gltf-model look-at="[camera]" id="${id}" project='visAR' ${pos} ${rot}${src}${ani}></a-gltf-model>`;
 }
 HtmlGenerator['vector3'] = function (block) {
     let x = block.getFieldValue('x');
@@ -148,7 +149,9 @@ HtmlGenerator['print'] = function (block) {
 }
 HtmlGenerator['move_object'] = function (block) {
     Blockly.JavaScript.init(Blockly.mainWorkspace)
-    let value = block.getFieldValue('NAME');
+
+    let offset =  HtmlGenerator.valueToCode(block, "OFFSET", Blockly.JavaScript.ORDER_ATOMIC);
+
     let var_object = Blockly.JavaScript.variableDB_.getName(
         block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
     let var_start = Blockly.JavaScript.variableDB_.getName(
@@ -156,23 +159,27 @@ HtmlGenerator['move_object'] = function (block) {
     let var_end = Blockly.JavaScript.variableDB_.getName(
         block.getFieldValue('END'), Blockly.Variables.NAME_TYPE);
     let code =`\n let scene${var_object} = document.querySelector('a-scene');\n`;
-    code += `\n let pos1 = document.querySelector('#${var_start}').object3D.position;\n`;
-    code += `\n let pos2 = document.querySelector('#${var_end}').object3D.position;\n`;
+    code += `\n var pos1${var_object} = document.querySelector('#${var_start}').object3D.position;\n`;
+    code += `\n var pos2${var_object} = document.querySelector('#${var_end}').object3D.position;\n`;
     code += `\n let $obj${var_object} = document.querySelector('#${var_object}')\n`;
+    code += `\n let x_${var_object} = parseFloat("${offset}".split(' ')[0]);\n`;
+    code += `\n let y_${var_object} = parseFloat("${offset}".split(' ')[1]);\n`;
+    code += `\n let z_${var_object} = parseFloat("${offset}".split(' ')[2]);\n`;
     code += `\n $obj${var_object}.parentNode.removeChild($obj${var_object})\n`;
     code += `\n scene${var_object}.appendChild($obj${var_object}.cloneNode());\n`;
-    code += `\n $($obj${var_object}).attr("position",[pos1.x, pos1.y, pos1.z].join(" "))\n`;
-    code += `\n let curve = document.createElement('a-curve');\n`;
+    code += `\n $($obj${var_object}).attr("position",[pos1${var_object}.x, pos1${var_object}.y, pos1${var_object}.z].join(" "))\n`;
+    code += `\n let curve${var_object} = document.createElement('a-curve');\n`;
     code += `\n $("#${var_start}${var_end}").remove(); \n`;
-    code += `\n curve.setAttribute('id', '${var_start}${var_end}');\n`;
-    code += `\n let curvePoint1 = document.createElement('a-curve-point');\n`;
-    code += `\n let curvePoint2 = document.createElement('a-curve-point');\n`;
-    code += `\n curvePoint1.setAttribute('position',[pos1.x, pos1.y, pos1.z].join(" "));\n`;
-    code += `\n curvePoint2.setAttribute('position', [pos2.x, pos2.y, pos2.z].join(" "));\n`;
-    code += `\n curve.appendChild(curvePoint1);\n`;
-    code += `\n curve.appendChild(curvePoint2);\n`;
-    code += `\n scene${var_object}.appendChild(curve);\n`;
+    code += `\n curve${var_object}.setAttribute('id', '${var_start}${var_end}');\n`;
+    code += `\n let curvePoint1${var_object} = document.createElement('a-curve-point');\n`;
+    code += `\n let curvePoint2${var_object} = document.createElement('a-curve-point');\n`;
+    code += `\n curvePoint1${var_object}.setAttribute('position',[pos1${var_object}.x, pos1${var_object}.y, pos1${var_object}.z].join(" "));\n`;
+    code += `\n curvePoint2${var_object}.setAttribute('position', [pos2${var_object}.x + x_${var_object}, pos2${var_object}.y+y_${var_object}, pos2${var_object}.z+z_${var_object}].join(" "));\n`;
+    code += `\n curve${var_object}.appendChild(curvePoint1${var_object});\n`;
+    code += `\n curve${var_object}.appendChild(curvePoint2${var_object});\n`;
+    code += `\n scene${var_object}.appendChild(curve${var_object});\n`;
     code += `\n $("#${var_object}").attr("alongpath","curve: #${var_start}${var_end}; dur: 3000; rotate: true; delay: 2000")\n`;
+    console.log(code)
     return code;
 }
 
@@ -180,10 +187,9 @@ HtmlGenerator['set_object_animation'] = function (block) {
     Blockly.JavaScript.init(Blockly.mainWorkspace);
     let var_object = Blockly.JavaScript.variableDB_.getName(
         block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-    let var_animation = Blockly.JavaScript.variableDB_.getName(
-        block.getFieldValue('ANIMATION'), Blockly.Variables.NAME_TYPE);
+    let var_animation = HtmlGenerator.valueToCode(block,'ANIMATION', Blockly.JavaScript.ORDER_ATOMIC);
 
-    return `\n  $("#${var_object}").attr("animation-mixer","clip: ${var_animation}");\n`;
+    return `\n  $("#${var_object}").attr("animation-mixer",'clip: ${var_animation}');\n`;
 }
 
 HtmlGenerator['move_object_finish'] = function (block) {
@@ -191,7 +197,6 @@ HtmlGenerator['move_object_finish'] = function (block) {
     let var_object = Blockly.JavaScript.variableDB_.getName(
         block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
     let statement_content = HtmlGenerator.statementToCode(block, "content");
-
     return `$("#${var_object}").off("movingended","**")\n$("#${var_object}").on('movingended', function(){${statement_content}\n})`;
 }
 
@@ -206,9 +211,20 @@ HtmlGenerator['play_audio'] = function (block) {
     let src = block.getFieldValue("audio")
     return `\n let audio = new Audio("${src}");\n audio.play()`;
 }
+HtmlGenerator['animation'] = function (block) {
+    let code = block.getFieldValue("ANIMATION")
+    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+}
 HtmlGenerator['wait_second'] = function (block) {
     let statement_content = HtmlGenerator.statementToCode(block, "content");
 
     let sec = block.getFieldValue("NAME")
     return `\n setTimeout(function(){${statement_content}},${sec*1000})`;
+}
+
+HtmlGenerator['display_message'] = function (block) {
+    let message = block.getFieldValue('NAME');
+    let code =`\n$("div#message").remove();\n`;
+    code += `\n$('<div id="message" class="fixed-bottom mb-4"><div class="text-center pl-5 pr-5 bg-info message"><h4>${message}</h4></div></div>').appendTo('body');\n`
+    return code;
 }

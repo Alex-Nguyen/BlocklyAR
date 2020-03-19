@@ -13,6 +13,7 @@
       <list>
         <option value="JavaScript File" />
         <option value="HTML File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -22,6 +23,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="HTML" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -58,7 +60,8 @@
       <workItem from="1583646592999" duration="41000" />
       <workItem from="1583816087082" duration="10028000" />
       <workItem from="1583983074731" duration="38438000" />
-      <workItem from="1584257140590" duration="64969000" />
+      <workItem from="1584257140590" duration="66197000" />
+      <workItem from="1584588580594" duration="22004000" />
     </task>
     <servers />
   </component>

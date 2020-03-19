@@ -301,6 +301,7 @@ Blockly.defineBlocksWithJsonArray([
             }
         ],
         previousStatement: "null",
+        nextStatement: "null",
         "colour": 355,
         "tooltip": "",
         "helpUrl": ""

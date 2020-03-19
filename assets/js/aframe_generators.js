@@ -57,7 +57,7 @@ HtmlGenerator['cube'] = function (block) {
     if(pos !=="") pos  = `position = '${pos}'`;
     if(rot !=="") rot  = `rotation = '${rot}'`;
 
-    return `<a-box material="opacity:0.1" project='visAR' ${pos} ${rot}></a-box>`;
+    return `<a-box color="red" project='visAR' ${pos} ${rot}></a-box>`;
 };
 HtmlGenerator['animation-mixer'] = function (block) {
     let pos = HtmlGenerator.valueToCode(block,'position_vector3', Blockly.JavaScript.ORDER_ATOMIC);
@@ -66,7 +66,7 @@ HtmlGenerator['animation-mixer'] = function (block) {
     if(pos !=="") pos  = `position = '${pos}'`;
     if(rot !=="") rot  = `rotation = '${rot}'`;
 
-    return `<a-box project='visAR' ${pos} ${rot}></a-box>`;
+    return `<a-box color="red" project='visAR' ${pos} ${rot}></a-box>`;
 };
 
 HtmlGenerator['gltf'] = function (block) {

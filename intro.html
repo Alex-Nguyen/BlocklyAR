@@ -1,0 +1,2455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial for Visual Augmented Reality</title>
+    <!--    <link rel="stylesheet" href="assets/css/common.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js"></script>
+    <script src="assets/js/blockly_compressed.js"></script>
+    <script src="assets/js/blocks_compressed.js"></script>
+    <script src="assets/js/javascript_compressed.js"></script>
+    <script src="assets/js/en.js"></script>
+    <script src="assets/js/aframe_generators.js"></script>
+    <script src="assets/js/aframe_blocks.js"></script>
+    <script src="assets/js/emotion-ratings.js"></script>
+    <style>
+
+        /* Rating Star Widgets Style */
+        .rating-stars ul {
+            list-style-type:none;
+            padding:0;
+
+            -moz-user-select:none;
+            -webkit-user-select:none;
+        }
+        .rating-stars ul > li.star {
+            display:inline-block;
+
+        }
+
+        /* Idle State of the stars */
+        .rating-stars ul > li.star > i.fa {
+            font-size:2.5em; /* Change the size of the stars */
+            color:#ccc; /* Color on idle state */
+        }
+
+        /* Hover state of the stars */
+        .rating-stars ul > li.star.hover > i.fa {
+            color:#FFCC36;
+        }
+
+        /* Selected state of the stars */
+        .rating-stars ul > li.star.selected > i.fa {
+            color:#FF912C;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0" data-intro='Tutorial area where you can practice programming step by step' data-step="1">
+            <li class="nav-item">
+                <a class="nav-link" id="tutorial" href="#">Introduction to VisAR</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tutorial_level1" href="#">1</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " id="tutorial_level2" href="#">2</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tutorial_level3" href="#">3</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tutorial_level4" href="#">4</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tutorial_level5" href="#">5</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tutorial_level6" href="#">6</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tutorial_level7" href="#">7</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tutorial_level8" href="#">8</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tutorial_level9" href="#">9</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tutorial_level10" href="#">10</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tutorial_level11" href="#">11</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tutorial_level12" href="#">12</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tutorial_level13" href="#">13</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="completed" href="#">Completed</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <button type="button" class="btn btn-button" data-intro='Export your block to application!' data-step="4"> Export</button>
+
+        </form>
+    </div>
+</nav>
+
+<div class="container-fluid mt-2">
+    <div class="row ">
+        <div class="col-4 bg-light">
+            <iframe allowfullscreen id="ar_scene" src="ar.html" allow="camera" width="500px" height="400px"
+                    data-intro='Visualization area where you can see the change of your code visually'
+                    data-step="2"></iframe>
+            <div>
+                <button id="runProgram" type="button" class="btn btn-danger">Run Program</button>
+                <button id="stopProgram" type="button" class="btn btn-dark">Stop Program</button>
+            </div>
+        </div>
+        <div class="col-8">
+            <div id="blocklyArea" style="height: 650px; width: 1000px;"
+                 data-intro='Coding area where you can drag and drop block to make your application'
+                 data-step="3"></div>
+            <xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none">
+                <category name="A-Frame" expanded="true">
+
+                    <category name="Markers">
+                        <block type="marker" name="marker">
+                            <value name="NAME">
+                                <block type="ar_preset">
+                                    <field name="preset">hiro</field>
+                                </block>
+                            </value>
+                        </block>
+                        <block type="ar_preset" name="preset"></block>
+
+                        <block type="ar_pattern" name="pattern"></block>
+
+                        <block type="vector3"></block>
+                    </category>
+                    <category name="Sample models">
+                        <block type="cube" name="cube">
+                            <value name="position_vector3">
+                                <block type="vector3">
+                                    <field name="x">0</field>
+                                    <field name="y">0.5</field>
+                                    <field name="z">0</field>
+                                </block>
+                            </value>
+                            <value name="rotation_vector3">
+                                <block type="vector3">
+                                    <field name="x">0</field>
+                                    <field name="y">0</field>
+                                    <field name="z">0</field>
+                                </block>
+                            </value>
+                        </block>
+                        <block type="gltf" name="gltf">
+                            <value name="position_vector3">
+                                <block type="vector3">
+                                    <field name="x">0</field>
+                                    <field name="y">0.5</field>
+                                    <field name="z">0</field>
+                                </block>
+                            </value>
+                            <value name="rotation_vector3">
+                                <block type="vector3">
+                                    <field name="x">0</field>
+                                    <field name="y">0</field>
+                                    <field name="z">0</field>
+                                </block>
+                            </value>
+                            <value name="SOURCE">
+                                <block type="src_gltf">
+                                    <field name="src">assets/models/CesiumMan.gltf</field>
+                                </block>
+                            </value>
+                        </block>
+                        <block type="animation-mixer" name="animations"></block>
+                        <block type="src_gltf" name="gltf"></block>
+
+                        <block type="clip" name="clip"></block>
+                        <block type="loop" name="loop"></block>
+                    </category>
+                    <category name="Animation">
+
+                        <block type="animation" name="animation"></block>
+                        <block type="move_object" name="move_object">
+                            <field name="VAR">item</field>
+                            <field name="START">item</field>
+                            <field name="END">item</field>
+                            <value name="OFFSET">
+                                <block type="vector3">
+                                    <field name="x">0</field>
+                                    <field name="y">0</field>
+                                    <field name="z">0</field>
+                                </block>
+                            </value>
+                        </block>
+                        <block type="set_object_animation" name="set_object_animation">
+                            <field name="VAR">item</field>
+                            <value name="ANIMATION">
+                                <block type="animation">
+                                    <field name="ANIMATION">animation_0</field>
+                                </block>
+                            </value>
+                        </block>
+                        <block type="move_object_finish" name="move_object_finish"></block>
+                        <block type="trigger_behavior" name="trigger_behavior"></block>
+                    </category>
+                    <category name="Actions">
+
+                        <block type="play_audio" name="play_audio"></block>
+                        <block type="display_message" name="display_message"></block>
+
+                        <block type="wait_second" name="wait_second"></block>
+                    </category>
+                    <block type="ar_scene" name="vr_scene"></block>
+                    <block type="register_component" name="register_component"></block>
+                    <block type="component_init" name="component_init"></block>
+                    <block type="component_init_function" name="component_init_function"></block>
+                    <block type="component_tick" name="component_tick"></block>
+
+                    <block type="behavior" name="behavior"></block>
+                    <block type="print" name="print"></block>
+                    <block type="button" name="button"></block>
+                    <block type="script" name="script">
+                        <statement name="content">
+                            <block type="register_component">
+                                <field name="VAR">manager</field>
+                                <statement name="content">
+                                    <block type="component_init">
+                                    </block>
+                                </statement>
+                            </block>
+                        </statement>
+                    </block>
+                    <block type="nav_bar" name="nav_bar">
+                        <field name="POSITION">fixed-top</field>
+                        <statement name="content">
+                            <block type="button">
+                                <field name="VAR">item</field>
+                                <field name="NAME">Button 1</field>
+                            </block>
+                        </statement>
+                    </block>
+                    <category name="Variables" custom="VARIABLE" colour="%{BKY_VARIABLES_HUE}">
+                    </category>
+
+                </category>
+
+
+                <sep></sep>
+            </xml>
+
+            <xml xmlns="http://www.w3.org/1999/xhtml" id="workspace1" style="display: none">
+            </xml>
+            <xml xmlns="http://www.w3.org/1999/xhtml" id="workspace2" style="display: none">
+                <block type="ar_scene" name="AR_SCENE"></block>
+            </xml>
+            <xml xmlns="http://www.w3.org/1999/xhtml" id="workspace3" style="display: none">
+                <block type="ar_scene" name="AR_SCENE">
+                    <statement name="content">
+                        <block type="marker">
+                            <field name="VAR">item</field>
+                            <value name="NAME">
+                                <block type="ar_preset">
+                                    <field name="preset">hiro</field>
+                                </block>
+                            </value>
+                            <statement name="content">
+                                <block type="cube">
+                                    <value name="position_vector3">
+                                        <block type="vector3">
+                                            <field name="x">0</field>
+                                            <field name="y">0</field>
+                                            <field name="z">0</field>
+                                        </block>
+                                    </value>
+                                    <value name="rotation_vector3">
+                                        <block type="vector3">
+                                            <field name="x">0</field>
+                                            <field name="y">0</field>
+                                            <field name="z">0</field>
+                                        </block>
+                                    </value>
+                                </block>
+                            </statement>
+                        </block>
+                    </statement>
+                </block>
+            </xml>
+            <xml xmlns="http://www.w3.org/1999/xhtml" id="workspace4" style="display: none">
+                <block type="ar_scene" id="CZXZmA*4B$hPy;EH,QPN" x="10" y="10">
+                    <statement name="content">
+                        <block type="marker" id="}T-s9_VpRV%4|9;d{9*%">
+                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                            <value name="NAME">
+                                <block type="ar_pattern" id="2yZ/gFw`t4IL+ppWBpf*">
+                                    <field name="pattern">assets/patterns/letterA.patt</field>
+                                </block>
+                            </value>
+                            <statement name="content">
+                                <block type="gltf" id="VL9`UidhqO|:wUWCr5.e">
+                                    <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                    <value name="position_vector3">
+                                        <block type="vector3" id="E?%T1AE=7}Zq~JP]glmt">
+                                            <field name="x">0</field>
+                                            <field name="y">0.5</field>
+                                            <field name="z">0</field>
+                                        </block>
+                                    </value>
+                                    <value name="rotation_vector3">
+                                        <block type="vector3" id="_F/fRm`9knCG=oOa=z$b">
+                                            <field name="x">0</field>
+                                            <field name="y">0</field>
+                                            <field name="z">0</field>
+                                        </block>
+                                    </value>
+                                    <value name="SOURCE">
+                                        <block type="src_gltf" id="s3^#koU^CY6E*O@kn1Vb">
+                                            <field name="src">assets/models/CesiumMan.gltf</field>
+                                        </block>
+                                    </value>
+                                </block>
+                            </statement>
+                        </block>
+                    </statement>
+                </block>
+
+            </xml>
+            <xml xmlns="http://www.w3.org/1999/xhtml" id="workspace5" style="display: none">
+                <variables>
+                    <variable id="=7uz~!.Gt4N1V--(JX2X">item</variable>
+                </variables>
+                <block type="ar_scene" id="CZXZmA*4B$hPy;EH,QPN" x="10" y="10">
+                    <statement name="content">
+                        <block type="marker" id="}T-s9_VpRV%4|9;d{9*%">
+                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                            <value name="NAME">
+                                <block type="ar_pattern" id="2yZ/gFw`t4IL+ppWBpf*">
+                                    <field name="pattern">assets/patterns/letterA.patt</field>
+                                </block>
+                            </value>
+                            <statement name="content">
+                                <block type="gltf" id="VL9`UidhqO|:wUWCr5.e">
+                                    <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                    <value name="position_vector3">
+                                        <block type="vector3" id="E?%T1AE=7}Zq~JP]glmt">
+                                            <field name="x">0</field>
+                                            <field name="y">0.5</field>
+                                            <field name="z">0</field>
+                                        </block>
+                                    </value>
+                                    <value name="rotation_vector3">
+                                        <block type="vector3" id="_F/fRm`9knCG=oOa=z$b">
+                                            <field name="x">0</field>
+                                            <field name="y">0</field>
+                                            <field name="z">0</field>
+                                        </block>
+                                    </value>
+                                    <value name="SOURCE">
+                                        <block type="src_gltf" id="s3^#koU^CY6E*O@kn1Vb">
+                                            <field name="src">assets/models/CesiumMan.gltf</field>
+                                        </block>
+                                    </value>
+                                </block>
+                            </statement>
+                            <next>
+                                <block type="marker" id="[4$6^=,5UBPoj~PlydB:">
+                                    <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                    <value name="NAME">
+                                        <block type="ar_pattern" id="P~_G=~1Iok{;jq)u}TnA">
+                                            <field name="pattern">assets/patterns/letterC.patt</field>
+                                        </block>
+                                    </value>
+                                    <statement name="content">
+                                        <block type="gltf" id="8R8!s6vO+RS4X%Wqdpxo">
+                                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                            <value name="position_vector3">
+                                                <block type="vector3" id="yA!VJ6IA[-i-txNCrlQY">
+                                                    <field name="x">0</field>
+                                                    <field name="y">0.5</field>
+                                                    <field name="z">0</field>
+                                                </block>
+                                            </value>
+                                            <value name="rotation_vector3">
+                                                <block type="vector3" id="Fj?s5gI|wwuW3qZ8Vsl|">
+                                                    <field name="x">0</field>
+                                                    <field name="y">0</field>
+                                                    <field name="z">0</field>
+                                                </block>
+                                            </value>
+                                            <value name="SOURCE">
+                                                <block type="src_gltf" id="3+}5a~Fg*}fAY|VU^//W">
+                                                    <field name="src">assets/models/FinalUnion.glb</field>
+                                                </block>
+                                            </value>
+                                        </block>
+                                    </statement>
+                                </block>
+                            </next>
+                        </block>
+                    </statement>
+                </block>
+
+
+            </xml>
+            <xml xmlns="http://www.w3.org/1999/xhtml" id="workspace6" style="display: none">
+                <variables>
+                    <variable id="=7uz~!.Gt4N1V--(JX2X">item</variable>
+                </variables>
+                <block type="nav_bar" id="a%)T{bOImm]{yfN@0!af" x="12" y="-40">
+                    <field name="POSITION">fixed-top</field>
+                    <statement name="content">
+                        <block type="button" id="R|4fe=BwP3p.-#P10i?A">
+                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                            <field name="NAME">Button 1</field>
+                        </block>
+                    </statement>
+                    <next>
+                        <block type="ar_scene" id="CZXZmA*4B$hPy;EH,QPN">
+                            <statement name="content">
+                                <block type="marker" id="}T-s9_VpRV%4|9;d{9*%">
+                                    <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                    <value name="NAME">
+                                        <block type="ar_pattern" id="2yZ/gFw`t4IL+ppWBpf*">
+                                            <field name="pattern">assets/patterns/letterA.patt</field>
+                                        </block>
+                                    </value>
+                                    <statement name="content">
+                                        <block type="gltf" id="VL9`UidhqO|:wUWCr5.e">
+                                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                            <value name="position_vector3">
+                                                <block type="vector3" id="E?%T1AE=7}Zq~JP]glmt">
+                                                    <field name="x">0</field>
+                                                    <field name="y">0.5</field>
+                                                    <field name="z">0</field>
+                                                </block>
+                                            </value>
+                                            <value name="rotation_vector3">
+                                                <block type="vector3" id="_F/fRm`9knCG=oOa=z$b">
+                                                    <field name="x">0</field>
+                                                    <field name="y">0</field>
+                                                    <field name="z">0</field>
+                                                </block>
+                                            </value>
+                                            <value name="SOURCE">
+                                                <block type="src_gltf" id="s3^#koU^CY6E*O@kn1Vb">
+                                                    <field name="src">assets/models/CesiumMan.gltf</field>
+                                                </block>
+                                            </value>
+                                        </block>
+                                    </statement>
+                                    <next>
+                                        <block type="marker" id="[4$6^=,5UBPoj~PlydB:">
+                                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                            <value name="NAME">
+                                                <block type="ar_pattern" id="P~_G=~1Iok{;jq)u}TnA">
+                                                    <field name="pattern">assets/patterns/letterC.patt</field>
+                                                </block>
+                                            </value>
+                                            <statement name="content">
+                                                <block type="gltf" id="8R8!s6vO+RS4X%Wqdpxo">
+                                                    <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                                    <value name="position_vector3">
+                                                        <block type="vector3" id="yA!VJ6IA[-i-txNCrlQY">
+                                                            <field name="x">0</field>
+                                                            <field name="y">0.5</field>
+                                                            <field name="z">0</field>
+                                                        </block>
+                                                    </value>
+                                                    <value name="rotation_vector3">
+                                                        <block type="vector3" id="Fj?s5gI|wwuW3qZ8Vsl|">
+                                                            <field name="x">0</field>
+                                                            <field name="y">0</field>
+                                                            <field name="z">0</field>
+                                                        </block>
+                                                    </value>
+                                                    <value name="SOURCE">
+                                                        <block type="src_gltf" id="3+}5a~Fg*}fAY|VU^//W">
+                                                            <field name="src">assets/models/FinalUnion.glb</field>
+                                                        </block>
+                                                    </value>
+                                                </block>
+                                            </statement>
+                                        </block>
+                                    </next>
+                                </block>
+                            </statement>
+                        </block>
+                    </next>
+                </block>
+
+
+            </xml>
+            <xml xmlns="http://www.w3.org/1999/xhtml" id="workspace7" style="display: none">
+                <variables>
+                    <variable id="=7uz~!.Gt4N1V--(JX2X">item</variable>
+                </variables>
+                <block type="nav_bar" id="a%)T{bOImm]{yfN@0!af" x="12" y="-40">
+                    <field name="POSITION">fixed-top</field>
+                    <statement name="content">
+                        <block type="button" id="R|4fe=BwP3p.-#P10i?A">
+                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                            <field name="NAME">S1</field>
+                            <next>
+                                <block type="button" id="*v^4G^)$S?DfspYx%fGS">
+                                    <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                    <field name="NAME">S2</field>
+                                    <next>
+                                        <block type="button" id="a51)P6]MSwih#kIS*Xji">
+                                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                            <field name="NAME">S3</field>
+                                            <next>
+                                                <block type="button" id="b#_LfxZ]D46Z?,;vuVMx">
+                                                    <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                                    <field name="NAME">S4</field>
+                                                </block>
+                                            </next>
+                                        </block>
+                                    </next>
+                                </block>
+                            </next>
+                        </block>
+                    </statement>
+                    <next>
+                        <block type="ar_scene" id="CZXZmA*4B$hPy;EH,QPN">
+                            <statement name="content">
+                                <block type="marker" id="}T-s9_VpRV%4|9;d{9*%">
+                                    <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                    <value name="NAME">
+                                        <block type="ar_pattern" id="2yZ/gFw`t4IL+ppWBpf*">
+                                            <field name="pattern">assets/patterns/letterA.patt</field>
+                                        </block>
+                                    </value>
+                                    <statement name="content">
+                                        <block type="gltf" id="VL9`UidhqO|:wUWCr5.e">
+                                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                            <value name="position_vector3">
+                                                <block type="vector3" id="E?%T1AE=7}Zq~JP]glmt">
+                                                    <field name="x">0</field>
+                                                    <field name="y">0.5</field>
+                                                    <field name="z">0</field>
+                                                </block>
+                                            </value>
+                                            <value name="rotation_vector3">
+                                                <block type="vector3" id="_F/fRm`9knCG=oOa=z$b">
+                                                    <field name="x">0</field>
+                                                    <field name="y">0</field>
+                                                    <field name="z">0</field>
+                                                </block>
+                                            </value>
+                                            <value name="SOURCE">
+                                                <block type="src_gltf" id="s3^#koU^CY6E*O@kn1Vb">
+                                                    <field name="src">assets/models/CesiumMan.gltf</field>
+                                                </block>
+                                            </value>
+                                        </block>
+                                    </statement>
+                                    <next>
+                                        <block type="marker" id="[4$6^=,5UBPoj~PlydB:">
+                                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                            <value name="NAME">
+                                                <block type="ar_pattern" id="P~_G=~1Iok{;jq)u}TnA">
+                                                    <field name="pattern">assets/patterns/letterC.patt</field>
+                                                </block>
+                                            </value>
+                                            <statement name="content">
+                                                <block type="gltf" id="8R8!s6vO+RS4X%Wqdpxo">
+                                                    <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                                    <value name="position_vector3">
+                                                        <block type="vector3" id="yA!VJ6IA[-i-txNCrlQY">
+                                                            <field name="x">0</field>
+                                                            <field name="y">0.5</field>
+                                                            <field name="z">0</field>
+                                                        </block>
+                                                    </value>
+                                                    <value name="rotation_vector3">
+                                                        <block type="vector3" id="Fj?s5gI|wwuW3qZ8Vsl|">
+                                                            <field name="x">0</field>
+                                                            <field name="y">0</field>
+                                                            <field name="z">0</field>
+                                                        </block>
+                                                    </value>
+                                                    <value name="SOURCE">
+                                                        <block type="src_gltf" id="3+}5a~Fg*}fAY|VU^//W">
+                                                            <field name="src">assets/models/FinalUnion.glb</field>
+                                                        </block>
+                                                    </value>
+                                                </block>
+                                            </statement>
+                                        </block>
+                                    </next>
+                                </block>
+                            </statement>
+                        </block>
+                    </next>
+                </block>
+
+            </xml>
+            <xml xmlns="http://www.w3.org/1999/xhtml" id="workspace8" style="display: none">
+                <variables>
+                    <variable id="*BA+H.NyuvDEVg.eenGh">manager</variable>
+                    <variable id="=7uz~!.Gt4N1V--(JX2X">item</variable>
+                </variables>
+                <block type="script" id=",;rv6AFUv/1q%!8gLU/d" x="19" y="-137">
+                    <statement name="content">
+                        <block type="register_component" id="ELP7,amG]m}Q@vqTXaWN">
+                            <field name="VAR" id="*BA+H.NyuvDEVg.eenGh">manager</field>
+                            <statement name="content">
+                                <block type="component_init" id="?g1?Ne6*j-zDf]8Cp1LI">
+                                    <statement name="content">
+                                        <block type="component_init_function" id="2m|y)BEqT`mxw^`m5RIo">
+                                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                        </block>
+                                    </statement>
+                                </block>
+                            </statement>
+                        </block>
+                    </statement>
+                    <next>
+                        <block type="nav_bar" id="a%)T{bOImm]{yfN@0!af">
+                            <field name="POSITION">fixed-top</field>
+                            <statement name="content">
+                                <block type="button" id="R|4fe=BwP3p.-#P10i?A">
+                                    <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                    <field name="NAME">S1</field>
+                                    <next>
+                                        <block type="button" id="*v^4G^)$S?DfspYx%fGS">
+                                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                            <field name="NAME">S2</field>
+                                            <next>
+                                                <block type="button" id="a51)P6]MSwih#kIS*Xji">
+                                                    <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                                    <field name="NAME">S3</field>
+                                                    <next>
+                                                        <block type="button" id="b#_LfxZ]D46Z?,;vuVMx">
+                                                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                                            <field name="NAME">S4</field>
+                                                        </block>
+                                                    </next>
+                                                </block>
+                                            </next>
+                                        </block>
+                                    </next>
+                                </block>
+                            </statement>
+                            <next>
+                                <block type="ar_scene" id="CZXZmA*4B$hPy;EH,QPN">
+                                    <statement name="content">
+                                        <block type="marker" id="}T-s9_VpRV%4|9;d{9*%">
+                                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                            <value name="NAME">
+                                                <block type="ar_pattern" id="2yZ/gFw`t4IL+ppWBpf*">
+                                                    <field name="pattern">assets/patterns/letterA.patt</field>
+                                                </block>
+                                            </value>
+                                            <statement name="content">
+                                                <block type="gltf" id="VL9`UidhqO|:wUWCr5.e">
+                                                    <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                                    <value name="position_vector3">
+                                                        <block type="vector3" id="E?%T1AE=7}Zq~JP]glmt">
+                                                            <field name="x">0</field>
+                                                            <field name="y">0.5</field>
+                                                            <field name="z">0</field>
+                                                        </block>
+                                                    </value>
+                                                    <value name="rotation_vector3">
+                                                        <block type="vector3" id="_F/fRm`9knCG=oOa=z$b">
+                                                            <field name="x">0</field>
+                                                            <field name="y">0</field>
+                                                            <field name="z">0</field>
+                                                        </block>
+                                                    </value>
+                                                    <value name="SOURCE">
+                                                        <block type="src_gltf" id="s3^#koU^CY6E*O@kn1Vb">
+                                                            <field name="src">assets/models/CesiumMan.gltf</field>
+                                                        </block>
+                                                    </value>
+                                                </block>
+                                            </statement>
+                                            <next>
+                                                <block type="marker" id="[4$6^=,5UBPoj~PlydB:">
+                                                    <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                                    <value name="NAME">
+                                                        <block type="ar_pattern" id="P~_G=~1Iok{;jq)u}TnA">
+                                                            <field name="pattern">assets/patterns/letterC.patt
+                                                            </field>
+                                                        </block>
+                                                    </value>
+                                                    <statement name="content">
+                                                        <block type="gltf" id="8R8!s6vO+RS4X%Wqdpxo">
+                                                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                                            <value name="position_vector3">
+                                                                <block type="vector3" id="yA!VJ6IA[-i-txNCrlQY">
+                                                                    <field name="x">0</field>
+                                                                    <field name="y">0.5</field>
+                                                                    <field name="z">0</field>
+                                                                </block>
+                                                            </value>
+                                                            <value name="rotation_vector3">
+                                                                <block type="vector3" id="Fj?s5gI|wwuW3qZ8Vsl|">
+                                                                    <field name="x">0</field>
+                                                                    <field name="y">0</field>
+                                                                    <field name="z">0</field>
+                                                                </block>
+                                                            </value>
+                                                            <value name="SOURCE">
+                                                                <block type="src_gltf" id="3+}5a~Fg*}fAY|VU^//W">
+                                                                    <field name="src">assets/models/FinalUnion.glb
+                                                                    </field>
+                                                                </block>
+                                                            </value>
+                                                        </block>
+                                                    </statement>
+                                                </block>
+                                            </next>
+                                        </block>
+                                    </statement>
+                                </block>
+                            </next>
+                        </block>
+                    </next>
+                </block>
+
+            </xml>
+            <xml xmlns="http://www.w3.org/1999/xhtml" id="workspace9" style="display: none">
+                <variables>
+                    <variable id="*BA+H.NyuvDEVg.eenGh">manager</variable>
+                    <variable id="1w=ex6d(z6iX0iRyInQE">stage1</variable>
+                    <variable id="U^pMw$AlVT~zGKz7F*%m">stage2</variable>
+                    <variable id="=7uz~!.Gt4N1V--(JX2X">item</variable>
+                    <variable id="Fa1r!B*O]F.MBVh#SARd">stage3</variable>
+                    <variable id="irx995+vU2gA2aR6znY)">stage4</variable>
+                </variables>
+                <block type="script" id=",;rv6AFUv/1q%!8gLU/d" x="19" y="-137">
+                    <statement name="content">
+                        <block type="register_component" id="ELP7,amG]m}Q@vqTXaWN">
+                            <field name="VAR" id="*BA+H.NyuvDEVg.eenGh">manager</field>
+                            <statement name="content">
+                                <block type="component_init" id="?g1?Ne6*j-zDf]8Cp1LI">
+                                    <statement name="content">
+                                        <block type="component_init_function" id="2m|y)BEqT`mxw^`m5RIo">
+                                            <field name="VAR" id="1w=ex6d(z6iX0iRyInQE">stage1</field>
+                                        </block>
+                                    </statement>
+                                </block>
+                            </statement>
+                        </block>
+                    </statement>
+                    <next>
+                        <block type="nav_bar" id="a%)T{bOImm]{yfN@0!af">
+                            <field name="POSITION">fixed-top</field>
+                            <statement name="content">
+                                <block type="button" id="R|4fe=BwP3p.-#P10i?A">
+                                    <field name="VAR" id="1w=ex6d(z6iX0iRyInQE">stage1</field>
+                                    <field name="NAME">S1</field>
+                                    <next>
+                                        <block type="button" id="*v^4G^)$S?DfspYx%fGS">
+                                            <field name="VAR" id="U^pMw$AlVT~zGKz7F*%m">stage2</field>
+                                            <field name="NAME">S2</field>
+                                            <next>
+                                                <block type="button" id="a51)P6]MSwih#kIS*Xji">
+                                                    <field name="VAR" id="Fa1r!B*O]F.MBVh#SARd">stage3</field>
+                                                    <field name="NAME">S3</field>
+                                                    <next>
+                                                        <block type="button" id="b#_LfxZ]D46Z?,;vuVMx">
+                                                            <field name="VAR" id="irx995+vU2gA2aR6znY)">stage4
+                                                            </field>
+                                                            <field name="NAME">S4</field>
+                                                        </block>
+                                                    </next>
+                                                </block>
+                                            </next>
+                                        </block>
+                                    </next>
+                                </block>
+                            </statement>
+                            <next>
+                                <block type="ar_scene" id="CZXZmA*4B$hPy;EH,QPN">
+                                    <statement name="content">
+                                        <block type="marker" id="}T-s9_VpRV%4|9;d{9*%">
+                                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                            <value name="NAME">
+                                                <block type="ar_pattern" id="2yZ/gFw`t4IL+ppWBpf*">
+                                                    <field name="pattern">assets/patterns/letterA.patt</field>
+                                                </block>
+                                            </value>
+                                            <statement name="content">
+                                                <block type="gltf" id="VL9`UidhqO|:wUWCr5.e">
+                                                    <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                                    <value name="position_vector3">
+                                                        <block type="vector3" id="E?%T1AE=7}Zq~JP]glmt">
+                                                            <field name="x">0</field>
+                                                            <field name="y">0.5</field>
+                                                            <field name="z">0</field>
+                                                        </block>
+                                                    </value>
+                                                    <value name="rotation_vector3">
+                                                        <block type="vector3" id="_F/fRm`9knCG=oOa=z$b">
+                                                            <field name="x">0</field>
+                                                            <field name="y">0</field>
+                                                            <field name="z">0</field>
+                                                        </block>
+                                                    </value>
+                                                    <value name="SOURCE">
+                                                        <block type="src_gltf" id="s3^#koU^CY6E*O@kn1Vb">
+                                                            <field name="src">assets/models/CesiumMan.gltf</field>
+                                                        </block>
+                                                    </value>
+                                                </block>
+                                            </statement>
+                                            <next>
+                                                <block type="marker" id="[4$6^=,5UBPoj~PlydB:">
+                                                    <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                                    <value name="NAME">
+                                                        <block type="ar_pattern" id="P~_G=~1Iok{;jq)u}TnA">
+                                                            <field name="pattern">assets/patterns/letterA.patt
+                                                            </field>
+                                                        </block>
+                                                    </value>
+                                                    <statement name="content">
+                                                        <block type="gltf" id="8R8!s6vO+RS4X%Wqdpxo">
+                                                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                                            <value name="position_vector3">
+                                                                <block type="vector3" id="yA!VJ6IA[-i-txNCrlQY">
+                                                                    <field name="x">0</field>
+                                                                    <field name="y">0.5</field>
+                                                                    <field name="z">0</field>
+                                                                </block>
+                                                            </value>
+                                                            <value name="rotation_vector3">
+                                                                <block type="vector3" id="Fj?s5gI|wwuW3qZ8Vsl|">
+                                                                    <field name="x">0</field>
+                                                                    <field name="y">0</field>
+                                                                    <field name="z">0</field>
+                                                                </block>
+                                                            </value>
+                                                            <value name="SOURCE">
+                                                                <block type="src_gltf" id="3+}5a~Fg*}fAY|VU^//W">
+                                                                    <field name="src">assets/models/FinalUnion.glb
+                                                                    </field>
+                                                                </block>
+                                                            </value>
+                                                        </block>
+                                                    </statement>
+                                                </block>
+                                            </next>
+                                        </block>
+                                    </statement>
+                                </block>
+                            </next>
+                        </block>
+                    </next>
+                </block>
+            </xml>
+            <xml xmlns="http://www.w3.org/1999/xhtml" id="workspace10" style="display: none">
+                <variables>
+                    <variable id="*BA+H.NyuvDEVg.eenGh">manager</variable>
+                    <variable id="1w=ex6d(z6iX0iRyInQE">stage1</variable>
+                    <variable id="U^pMw$AlVT~zGKz7F*%m">stage2</variable>
+                    <variable id="=7uz~!.Gt4N1V--(JX2X">item</variable>
+                    <variable id="Fa1r!B*O]F.MBVh#SARd">stage3</variable>
+                    <variable id="irx995+vU2gA2aR6znY)">stage4</variable>
+                </variables>
+                <block type="script" id=",;rv6AFUv/1q%!8gLU/d" x="19" y="-137">
+                    <statement name="content">
+                        <block type="register_component" id="ELP7,amG]m}Q@vqTXaWN">
+                            <field name="VAR" id="*BA+H.NyuvDEVg.eenGh">manager</field>
+                            <statement name="content">
+                                <block type="component_init" id="?g1?Ne6*j-zDf]8Cp1LI">
+                                    <statement name="content">
+                                        <block type="component_init_function" id="2m|y)BEqT`mxw^`m5RIo">
+                                            <field name="VAR" id="1w=ex6d(z6iX0iRyInQE">stage1</field>
+                                            <value name="content">
+                                                <block type="behavior" id="`ab.A%aY$!tKtAOy]I?S">
+                                                    <statement name="NAME">
+                                                        <block type="display_message" id="qf*]!~4vTa6HmN1Lzb^|">
+                                                            <field name="NAME">Hello world</field>
+                                                        </block>
+                                                    </statement>
+                                                </block>
+                                            </value>
+                                        </block>
+                                    </statement>
+                                </block>
+                            </statement>
+                        </block>
+                    </statement>
+                    <next>
+                        <block type="nav_bar" id="a%)T{bOImm]{yfN@0!af">
+                            <field name="POSITION">fixed-top</field>
+                            <statement name="content">
+                                <block type="button" id="R|4fe=BwP3p.-#P10i?A">
+                                    <field name="VAR" id="1w=ex6d(z6iX0iRyInQE">stage1</field>
+                                    <field name="NAME">S1</field>
+                                    <next>
+                                        <block type="button" id="*v^4G^)$S?DfspYx%fGS">
+                                            <field name="VAR" id="U^pMw$AlVT~zGKz7F*%m">stage2</field>
+                                            <field name="NAME">S2</field>
+                                            <next>
+                                                <block type="button" id="a51)P6]MSwih#kIS*Xji">
+                                                    <field name="VAR" id="Fa1r!B*O]F.MBVh#SARd">stage3</field>
+                                                    <field name="NAME">S3</field>
+                                                    <next>
+                                                        <block type="button" id="b#_LfxZ]D46Z?,;vuVMx">
+                                                            <field name="VAR" id="irx995+vU2gA2aR6znY)">stage4
+                                                            </field>
+                                                            <field name="NAME">S4</field>
+                                                        </block>
+                                                    </next>
+                                                </block>
+                                            </next>
+                                        </block>
+                                    </next>
+                                </block>
+                            </statement>
+                            <next>
+                                <block type="ar_scene" id="CZXZmA*4B$hPy;EH,QPN">
+                                    <statement name="content">
+                                        <block type="marker" id="}T-s9_VpRV%4|9;d{9*%">
+                                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                            <value name="NAME">
+                                                <block type="ar_pattern" id="2yZ/gFw`t4IL+ppWBpf*">
+                                                    <field name="pattern">assets/patterns/letterA.patt</field>
+                                                </block>
+                                            </value>
+                                            <statement name="content">
+                                                <block type="gltf" id="VL9`UidhqO|:wUWCr5.e">
+                                                    <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                                    <value name="position_vector3">
+                                                        <block type="vector3" id="E?%T1AE=7}Zq~JP]glmt">
+                                                            <field name="x">0</field>
+                                                            <field name="y">0.5</field>
+                                                            <field name="z">0</field>
+                                                        </block>
+                                                    </value>
+                                                    <value name="rotation_vector3">
+                                                        <block type="vector3" id="_F/fRm`9knCG=oOa=z$b">
+                                                            <field name="x">0</field>
+                                                            <field name="y">0</field>
+                                                            <field name="z">0</field>
+                                                        </block>
+                                                    </value>
+                                                    <value name="SOURCE">
+                                                        <block type="src_gltf" id="s3^#koU^CY6E*O@kn1Vb">
+                                                            <field name="src">assets/models/CesiumMan.gltf</field>
+                                                        </block>
+                                                    </value>
+                                                </block>
+                                            </statement>
+                                            <next>
+                                                <block type="marker" id="[4$6^=,5UBPoj~PlydB:">
+                                                    <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                                    <value name="NAME">
+                                                        <block type="ar_pattern" id="P~_G=~1Iok{;jq)u}TnA">
+                                                            <field name="pattern">assets/patterns/letterA.patt
+                                                            </field>
+                                                        </block>
+                                                    </value>
+                                                    <statement name="content">
+                                                        <block type="gltf" id="8R8!s6vO+RS4X%Wqdpxo">
+                                                            <field name="VAR" id="=7uz~!.Gt4N1V--(JX2X">item</field>
+                                                            <value name="position_vector3">
+                                                                <block type="vector3" id="yA!VJ6IA[-i-txNCrlQY">
+                                                                    <field name="x">0</field>
+                                                                    <field name="y">0.5</field>
+                                                                    <field name="z">0</field>
+                                                                </block>
+                                                            </value>
+                                                            <value name="rotation_vector3">
+                                                                <block type="vector3" id="Fj?s5gI|wwuW3qZ8Vsl|">
+                                                                    <field name="x">0</field>
+                                                                    <field name="y">0</field>
+                                                                    <field name="z">0</field>
+                                                                </block>
+                                                            </value>
+                                                            <value name="SOURCE">
+                                                                <block type="src_gltf" id="3+}5a~Fg*}fAY|VU^//W">
+                                                                    <field name="src">assets/models/CesiumMan.gltf
+                                                                    </field>
+                                                                </block>
+                                                            </value>
+                                                        </block>
+                                                    </statement>
+                                                </block>
+                                            </next>
+                                        </block>
+                                    </statement>
+                                </block>
+                            </next>
+                        </block>
+                    </next>
+                </block>
+
+            </xml>
+            <xml xmlns="http://www.w3.org/1999/xhtml" id="workspace11" style="display: none">
+
+                <variables>
+                    <variable id="*BA+H.NyuvDEVg.eenGh">manager</variable>
+                    <variable id="1w=ex6d(z6iX0iRyInQE">stage1</variable>
+                    <variable id="U^pMw$AlVT~zGKz7F*%m">stage2</variable>
+                    <variable id="N8Bxr{+Dx]GrNHnpITTF">marker1</variable>
+                    <variable id="Fa1r!B*O]F.MBVh#SARd">stage3</variable>
+                    <variable id=".azrJ:=5WWo:T-MP=ux-">modelunion</variable>
+                    <variable id="Ju,}BVo=R.4)R9n:()%v">marker2</variable>
+                    <variable id="irx995+vU2gA2aR6znY)">stage4</variable>
+                    <variable id="}GUu,Ib_gdC3,j_4][`%">modelconf</variable>
+                </variables>
+                <block type="script" id=",;rv6AFUv/1q%!8gLU/d" x="19" y="-137">
+                    <statement name="content">
+                        <block type="register_component" id="ELP7,amG]m}Q@vqTXaWN">
+                            <field name="VAR" id="*BA+H.NyuvDEVg.eenGh">manager</field>
+                            <statement name="content">
+                                <block type="component_init" id="?g1?Ne6*j-zDf]8Cp1LI">
+                                    <statement name="content">
+                                        <block type="component_init_function" id="2m|y)BEqT`mxw^`m5RIo">
+                                            <field name="VAR" id="1w=ex6d(z6iX0iRyInQE">stage1</field>
+                                            <value name="content">
+                                                <block type="behavior" id="`ab.A%aY$!tKtAOy]I?S">
+                                                    <statement name="NAME">
+                                                        <block type="play_audio" id="{Q:|^%IUz]s{d4~^K+g9">
+                                                            <field name="audio">assets/audio/message01.mp3</field>
+                                                            <next>
+                                                                <block type="display_message"
+                                                                       id="Hjd_nLSjBoMRMPG`Lw^]">
+                                                                    <field name="NAME">Hello world</field>
+                                                                    <next>
+                                                                        <block type="move_object"
+                                                                               id="QYPueO=xz51U*8?$Cr14">
+                                                                            <field name="VAR"
+                                                                                   id=".azrJ:=5WWo:T-MP=ux-">
+                                                                                modelunion
+                                                                            </field>
+                                                                            <field name="START"
+                                                                                   id="N8Bxr{+Dx]GrNHnpITTF">marker1
+                                                                            </field>
+                                                                            <field name="END"
+                                                                                   id="Ju,}BVo=R.4)R9n:()%v">marker2
+                                                                            </field>
+                                                                            <value name="OFFSET">
+                                                                                <block type="vector3"
+                                                                                       id="6lGjNy)5rlQ^iR^ScBnr">
+                                                                                    <field name="x">0</field>
+                                                                                    <field name="y">0</field>
+                                                                                    <field name="z">0</field>
+                                                                                </block>
+                                                                            </value>
+                                                                            <next>
+                                                                                <block type="set_object_animation"
+                                                                                       id="aJV:K0=EHsTUi8[KeifS">
+                                                                                    <field name="VAR"
+                                                                                           id=".azrJ:=5WWo:T-MP=ux-">
+                                                                                        modelunion
+                                                                                    </field>
+                                                                                    <value name="ANIMATION">
+                                                                                        <block type="animation"
+                                                                                               id="j;uc~m=C^8zBZEX4APKX">
+                                                                                            <field name="ANIMATION">
+                                                                                                Walking
+                                                                                            </field>
+                                                                                        </block>
+                                                                                    </value>
+                                                                                </block>
+                                                                            </next>
+                                                                        </block>
+                                                                    </next>
+                                                                </block>
+                                                            </next>
+                                                        </block>
+                                                    </statement>
+                                                </block>
+                                            </value>
+                                        </block>
+                                    </statement>
+                                </block>
+                            </statement>
+                        </block>
+                    </statement>
+                    <next>
+                        <block type="nav_bar" id="a%)T{bOImm]{yfN@0!af">
+                            <field name="POSITION">fixed-top</field>
+                            <statement name="content">
+                                <block type="button" id="R|4fe=BwP3p.-#P10i?A">
+                                    <field name="VAR" id="1w=ex6d(z6iX0iRyInQE">stage1</field>
+                                    <field name="NAME">S1</field>
+                                    <next>
+                                        <block type="button" id="*v^4G^)$S?DfspYx%fGS">
+                                            <field name="VAR" id="U^pMw$AlVT~zGKz7F*%m">stage2</field>
+                                            <field name="NAME">S2</field>
+                                            <next>
+                                                <block type="button" id="a51)P6]MSwih#kIS*Xji">
+                                                    <field name="VAR" id="Fa1r!B*O]F.MBVh#SARd">stage3</field>
+                                                    <field name="NAME">S3</field>
+                                                    <next>
+                                                        <block type="button" id="b#_LfxZ]D46Z?,;vuVMx">
+                                                            <field name="VAR" id="irx995+vU2gA2aR6znY)">stage4
+                                                            </field>
+                                                            <field name="NAME">S4</field>
+                                                        </block>
+                                                    </next>
+                                                </block>
+                                            </next>
+                                        </block>
+                                    </next>
+                                </block>
+                            </statement>
+                            <next>
+                                <block type="ar_scene" id="CZXZmA*4B$hPy;EH,QPN">
+                                    <statement name="content">
+                                        <block type="marker" id="}T-s9_VpRV%4|9;d{9*%">
+                                            <field name="VAR" id="N8Bxr{+Dx]GrNHnpITTF">marker1</field>
+                                            <value name="NAME">
+                                                <block type="ar_pattern" id="2yZ/gFw`t4IL+ppWBpf*">
+                                                    <field name="pattern">assets/patterns/letterA.patt</field>
+                                                </block>
+                                            </value>
+                                            <statement name="content">
+                                                <block type="gltf" id="VL9`UidhqO|:wUWCr5.e">
+                                                    <field name="VAR" id=".azrJ:=5WWo:T-MP=ux-">modelunion</field>
+                                                    <value name="position_vector3">
+                                                        <block type="vector3" id="E?%T1AE=7}Zq~JP]glmt">
+                                                            <field name="x">0</field>
+                                                            <field name="y">0.5</field>
+                                                            <field name="z">0</field>
+                                                        </block>
+                                                    </value>
+                                                    <value name="rotation_vector3">
+                                                        <block type="vector3" id="_F/fRm`9knCG=oOa=z$b">
+                                                            <field name="x">0</field>
+                                                            <field name="y">0</field>
+                                                            <field name="z">0</field>
+                                                        </block>
+                                                    </value>
+                                                    <value name="SOURCE">
+                                                        <block type="src_gltf" id="s3^#koU^CY6E*O@kn1Vb">
+                                                            <field name="src">assets/models/FinalUnion.glb</field>
+                                                        </block>
+                                                    </value>
+                                                </block>
+                                            </statement>
+                                            <next>
+                                                <block type="marker" id="[4$6^=,5UBPoj~PlydB:">
+                                                    <field name="VAR" id="Ju,}BVo=R.4)R9n:()%v">marker2</field>
+                                                    <value name="NAME">
+                                                        <block type="ar_pattern" id="P~_G=~1Iok{;jq)u}TnA">
+                                                            <field name="pattern">assets/patterns/letterB.patt
+                                                            </field>
+                                                        </block>
+                                                    </value>
+                                                    <statement name="content">
+                                                        <block type="gltf" id="8R8!s6vO+RS4X%Wqdpxo">
+                                                            <field name="VAR" id="}GUu,Ib_gdC3,j_4][`%">modelconf
+                                                            </field>
+                                                            <value name="position_vector3">
+                                                                <block type="vector3" id="yA!VJ6IA[-i-txNCrlQY">
+                                                                    <field name="x">0</field>
+                                                                    <field name="y">0.5</field>
+                                                                    <field name="z">0</field>
+                                                                </block>
+                                                            </value>
+                                                            <value name="rotation_vector3">
+                                                                <block type="vector3" id="Fj?s5gI|wwuW3qZ8Vsl|">
+                                                                    <field name="x">0</field>
+                                                                    <field name="y">0</field>
+                                                                    <field name="z">0</field>
+                                                                </block>
+                                                            </value>
+                                                            <value name="SOURCE">
+                                                                <block type="src_gltf" id="3+}5a~Fg*}fAY|VU^//W">
+                                                                    <field name="src">assets/models/confTroop.glb
+                                                                    </field>
+                                                                </block>
+                                                            </value>
+                                                        </block>
+                                                    </statement>
+                                                </block>
+                                            </next>
+                                        </block>
+                                    </statement>
+                                </block>
+                            </next>
+                        </block>
+                    </next>
+                </block>
+
+            </xml>
+            <xml xmlns="http://www.w3.org/1999/xhtml" id="workspace12" style="display: none">
+                <variables>
+                    <variable id="*BA+H.NyuvDEVg.eenGh">manager</variable>
+                    <variable id="1w=ex6d(z6iX0iRyInQE">stage1</variable>
+                    <variable id="U^pMw$AlVT~zGKz7F*%m">stage2</variable>
+                    <variable id="N8Bxr{+Dx]GrNHnpITTF">marker1</variable>
+                    <variable id="Fa1r!B*O]F.MBVh#SARd">stage3</variable>
+                    <variable id=".azrJ:=5WWo:T-MP=ux-">modelunion</variable>
+                    <variable id="Ju,}BVo=R.4)R9n:()%v">marker2</variable>
+                    <variable id="irx995+vU2gA2aR6znY)">stage4</variable>
+                    <variable id="}GUu,Ib_gdC3,j_4][`%">modelconf</variable>
+                    <variable id="fw@(e))`skiG8n7c-%yw">marker3</variable>
+                    <variable id="{wj32),S(OL*1_d6)-)R">marker4</variable>
+                </variables>
+                <block type="script" id=",;rv6AFUv/1q%!8gLU/d" x="19" y="-137">
+                    <statement name="content">
+                        <block type="register_component" id="ELP7,amG]m}Q@vqTXaWN">
+                            <field name="VAR" id="*BA+H.NyuvDEVg.eenGh">manager</field>
+                            <statement name="content">
+                                <block type="component_init" id="?g1?Ne6*j-zDf]8Cp1LI">
+                                    <statement name="content">
+                                        <block type="component_init_function" id="2m|y)BEqT`mxw^`m5RIo">
+                                            <field name="VAR" id="1w=ex6d(z6iX0iRyInQE">stage1</field>
+                                            <value name="content">
+                                                <block type="behavior" id="`ab.A%aY$!tKtAOy]I?S">
+                                                    <statement name="NAME">
+                                                        <block type="play_audio" id="{Q:|^%IUz]s{d4~^K+g9">
+                                                            <field name="audio">assets/audio/message01.mp3</field>
+                                                            <next>
+                                                                <block type="display_message"
+                                                                       id="Hjd_nLSjBoMRMPG`Lw^]">
+                                                                    <field name="NAME">Hello world</field>
+                                                                    <next>
+                                                                        <block type="move_object"
+                                                                               id="QYPueO=xz51U*8?$Cr14">
+                                                                            <field name="VAR"
+                                                                                   id=".azrJ:=5WWo:T-MP=ux-">
+                                                                                modelunion
+                                                                            </field>
+                                                                            <field name="START"
+                                                                                   id="N8Bxr{+Dx]GrNHnpITTF">marker1
+                                                                            </field>
+                                                                            <field name="END"
+                                                                                   id="Ju,}BVo=R.4)R9n:()%v">marker2
+                                                                            </field>
+                                                                            <value name="OFFSET">
+                                                                                <block type="vector3"
+                                                                                       id="6lGjNy)5rlQ^iR^ScBnr">
+                                                                                    <field name="x">0</field>
+                                                                                    <field name="y">0</field>
+                                                                                    <field name="z">0</field>
+                                                                                </block>
+                                                                            </value>
+                                                                            <next>
+                                                                                <block type="set_object_animation"
+                                                                                       id="aJV:K0=EHsTUi8[KeifS">
+                                                                                    <field name="VAR"
+                                                                                           id=".azrJ:=5WWo:T-MP=ux-">
+                                                                                        modelunion
+                                                                                    </field>
+                                                                                    <value name="ANIMATION">
+                                                                                        <block type="animation"
+                                                                                               id="j;uc~m=C^8zBZEX4APKX">
+                                                                                            <field name="ANIMATION">
+                                                                                                Walking
+                                                                                            </field>
+                                                                                        </block>
+                                                                                    </value>
+                                                                                    <next>
+                                                                                        <block type="move_object_finish"
+                                                                                               id="!l|i{7DU(Yd;#I@)Ol$l">
+                                                                                            <field name="VAR"
+                                                                                                   id=".azrJ:=5WWo:T-MP=ux-">
+                                                                                                modelunion
+                                                                                            </field>
+                                                                                            <statement
+                                                                                                    name="content">
+                                                                                                <block type="set_object_animation"
+                                                                                                       id="q_pbiNi[k_9p9+,?#h?0">
+                                                                                                    <field name="VAR"
+                                                                                                           id="}GUu,Ib_gdC3,j_4][`%">
+                                                                                                        modelconf
+                                                                                                    </field>
+                                                                                                    <value name="ANIMATION">
+                                                                                                        <block type="animation"
+                                                                                                               id="~0(4+=WhoQ47J9.+3sw]">
+                                                                                                            <field name="ANIMATION">
+                                                                                                                Attack
+                                                                                                            </field>
+                                                                                                        </block>
+                                                                                                    </value>
+                                                                                                    <next>
+                                                                                                        <block type="set_object_animation"
+                                                                                                               id="`-i]f|J^5_g~jZ*yI;8(">
+                                                                                                            <field name="VAR"
+                                                                                                                   id=".azrJ:=5WWo:T-MP=ux-">
+                                                                                                                modelunion
+                                                                                                            </field>
+                                                                                                            <value name="ANIMATION">
+                                                                                                                <block type="animation"
+                                                                                                                       id="[^)n(+qBN#b5XoDqZ8,8">
+                                                                                                                    <field name="ANIMATION">
+                                                                                                                        Attack
+                                                                                                                    </field>
+                                                                                                                </block>
+                                                                                                            </value>
+                                                                                                        </block>
+                                                                                                    </next>
+                                                                                                </block>
+                                                                                            </statement>
+                                                                                        </block>
+                                                                                    </next>
+                                                                                </block>
+                                                                            </next>
+                                                                        </block>
+                                                                    </next>
+                                                                </block>
+                                                            </next>
+                                                        </block>
+                                                    </statement>
+                                                </block>
+                                            </value>
+                                            <next>
+                                                <block type="component_init_function" id="sAlr=wMzlu9iRb9#5?(F">
+                                                    <field name="VAR" id="U^pMw$AlVT~zGKz7F*%m">stage2</field>
+                                                    <value name="content">
+                                                        <block type="behavior" id="RGs7VImhN{0`uA)%1^%/">
+                                                            <statement name="NAME">
+                                                                <block type="play_audio" id="z^o=:89ps|kuTE=$aAIo">
+                                                                    <field name="audio">assets/audio/message02.mp3
+                                                                    </field>
+                                                                    <next>
+                                                                        <block type="display_message"
+                                                                               id="c_r,_;D@n-RPl*z:aUQc">
+                                                                            <field name="NAME">Hello world</field>
+                                                                            <next>
+                                                                                <block type="move_object"
+                                                                                       id="|THe,*X$4LG]kR4|*l~P">
+                                                                                    <field name="VAR"
+                                                                                           id="}GUu,Ib_gdC3,j_4][`%">
+                                                                                        modelconf
+                                                                                    </field>
+                                                                                    <field name="START"
+                                                                                           id="Ju,}BVo=R.4)R9n:()%v">
+                                                                                        marker2
+                                                                                    </field>
+                                                                                    <field name="END"
+                                                                                           id="fw@(e))`skiG8n7c-%yw">
+                                                                                        marker3
+                                                                                    </field>
+                                                                                    <value name="OFFSET">
+                                                                                        <block type="vector3"
+                                                                                               id="C(VMCzsr(P?r8[ET]sw:">
+                                                                                            <field name="x">0
+                                                                                            </field>
+                                                                                            <field name="y">0
+                                                                                            </field>
+                                                                                            <field name="z">0
+                                                                                            </field>
+                                                                                        </block>
+                                                                                    </value>
+                                                                                    <next>
+                                                                                        <block type="set_object_animation"
+                                                                                               id="gHw=85+4$k1Fw!)!ER{3">
+                                                                                            <field name="VAR"
+                                                                                                   id="}GUu,Ib_gdC3,j_4][`%">
+                                                                                                modelconf
+                                                                                            </field>
+                                                                                            <value name="ANIMATION">
+                                                                                                <block type="animation"
+                                                                                                       id="yl72RL1}SJQ4eQ/[Ll:m">
+                                                                                                    <field name="ANIMATION">
+                                                                                                        Running
+                                                                                                    </field>
+                                                                                                </block>
+                                                                                            </value>
+                                                                                            <next>
+                                                                                                <block type="move_object_finish"
+                                                                                                       id="D:Z@):5A9k#7WD+mErFs">
+                                                                                                    <field name="VAR"
+                                                                                                           id="}GUu,Ib_gdC3,j_4][`%">
+                                                                                                        modelconf
+                                                                                                    </field>
+                                                                                                    <statement
+                                                                                                            name="content">
+                                                                                                        <block type="set_object_animation"
+                                                                                                               id="-(g=6EVo=k8nYdhOIH#8">
+                                                                                                            <field name="VAR"
+                                                                                                                   id="}GUu,Ib_gdC3,j_4][`%">
+                                                                                                                modelconf
+                                                                                                            </field>
+                                                                                                            <value name="ANIMATION">
+                                                                                                                <block type="animation"
+                                                                                                                       id="u4hP~Bjs9l^8%BRpB(u[">
+                                                                                                                    <field name="ANIMATION">
+                                                                                                                        Idle
+                                                                                                                    </field>
+                                                                                                                </block>
+                                                                                                            </value>
+                                                                                                        </block>
+                                                                                                    </statement>
+                                                                                                </block>
+                                                                                            </next>
+                                                                                        </block>
+                                                                                    </next>
+                                                                                </block>
+                                                                            </next>
+                                                                        </block>
+                                                                    </next>
+                                                                </block>
+                                                            </statement>
+                                                        </block>
+                                                    </value>
+                                                </block>
+                                            </next>
+                                        </block>
+                                    </statement>
+                                </block>
+                            </statement>
+                        </block>
+                    </statement>
+                    <next>
+                        <block type="nav_bar" id="a%)T{bOImm]{yfN@0!af">
+                            <field name="POSITION">fixed-top</field>
+                            <statement name="content">
+                                <block type="button" id="R|4fe=BwP3p.-#P10i?A">
+                                    <field name="VAR" id="1w=ex6d(z6iX0iRyInQE">stage1</field>
+                                    <field name="NAME">S1</field>
+                                    <next>
+                                        <block type="button" id="*v^4G^)$S?DfspYx%fGS">
+                                            <field name="VAR" id="U^pMw$AlVT~zGKz7F*%m">stage2</field>
+                                            <field name="NAME">S2</field>
+                                            <next>
+                                                <block type="button" id="a51)P6]MSwih#kIS*Xji">
+                                                    <field name="VAR" id="Fa1r!B*O]F.MBVh#SARd">stage3</field>
+                                                    <field name="NAME">S3</field>
+                                                    <next>
+                                                        <block type="button" id="b#_LfxZ]D46Z?,;vuVMx">
+                                                            <field name="VAR" id="irx995+vU2gA2aR6znY)">stage4
+                                                            </field>
+                                                            <field name="NAME">S4</field>
+                                                        </block>
+                                                    </next>
+                                                </block>
+                                            </next>
+                                        </block>
+                                    </next>
+                                </block>
+                            </statement>
+                            <next>
+                                <block type="ar_scene" id="CZXZmA*4B$hPy;EH,QPN">
+                                    <statement name="content">
+                                        <block type="marker" id="}T-s9_VpRV%4|9;d{9*%">
+                                            <field name="VAR" id="N8Bxr{+Dx]GrNHnpITTF">marker1</field>
+                                            <value name="NAME">
+                                                <block type="ar_pattern" id="2yZ/gFw`t4IL+ppWBpf*">
+                                                    <field name="pattern">assets/patterns/letterA.patt</field>
+                                                </block>
+                                            </value>
+                                            <statement name="content">
+                                                <block type="gltf" id="VL9`UidhqO|:wUWCr5.e">
+                                                    <field name="VAR" id=".azrJ:=5WWo:T-MP=ux-">modelunion</field>
+                                                    <value name="position_vector3">
+                                                        <block type="vector3" id="E?%T1AE=7}Zq~JP]glmt">
+                                                            <field name="x">0</field>
+                                                            <field name="y">0.5</field>
+                                                            <field name="z">0</field>
+                                                        </block>
+                                                    </value>
+                                                    <value name="rotation_vector3">
+                                                        <block type="vector3" id="_F/fRm`9knCG=oOa=z$b">
+                                                            <field name="x">0</field>
+                                                            <field name="y">0</field>
+                                                            <field name="z">0</field>
+                                                        </block>
+                                                    </value>
+                                                    <value name="SOURCE">
+                                                        <block type="src_gltf" id="s3^#koU^CY6E*O@kn1Vb">
+                                                            <field name="src">assets/models/FinalUnion.glb</field>
+                                                        </block>
+                                                    </value>
+                                                </block>
+                                            </statement>
+                                            <next>
+                                                <block type="marker" id="[4$6^=,5UBPoj~PlydB:">
+                                                    <field name="VAR" id="Ju,}BVo=R.4)R9n:()%v">marker2</field>
+                                                    <value name="NAME">
+                                                        <block type="ar_pattern" id="P~_G=~1Iok{;jq)u}TnA">
+                                                            <field name="pattern">assets/patterns/letterB.patt
+                                                            </field>
+                                                        </block>
+                                                    </value>
+                                                    <statement name="content">
+                                                        <block type="gltf" id="8R8!s6vO+RS4X%Wqdpxo">
+                                                            <field name="VAR" id="}GUu,Ib_gdC3,j_4][`%">modelconf
+                                                            </field>
+                                                            <value name="position_vector3">
+                                                                <block type="vector3" id="yA!VJ6IA[-i-txNCrlQY">
+                                                                    <field name="x">0</field>
+                                                                    <field name="y">0.5</field>
+                                                                    <field name="z">0</field>
+                                                                </block>
+                                                            </value>
+                                                            <value name="rotation_vector3">
+                                                                <block type="vector3" id="Fj?s5gI|wwuW3qZ8Vsl|">
+                                                                    <field name="x">0</field>
+                                                                    <field name="y">0</field>
+                                                                    <field name="z">0</field>
+                                                                </block>
+                                                            </value>
+                                                            <value name="SOURCE">
+                                                                <block type="src_gltf" id="3+}5a~Fg*}fAY|VU^//W">
+                                                                    <field name="src">assets/models/confTroop.glb
+                                                                    </field>
+                                                                </block>
+                                                            </value>
+                                                        </block>
+                                                    </statement>
+                                                    <next>
+                                                        <block type="marker" id="DfY=t!FO^0B~MW3{^?yj">
+                                                            <field name="VAR" id="fw@(e))`skiG8n7c-%yw">marker3
+                                                            </field>
+                                                            <value name="NAME">
+                                                                <block type="ar_pattern" id="gkO4:0^5A*!)SV;Lkx=2">
+                                                                    <field name="pattern">
+                                                                        assets/patterns/letterC.patt
+                                                                    </field>
+                                                                </block>
+                                                            </value>
+                                                            <next>
+                                                                <block type="marker" id="rQ:CScBwPhM-nJjbo-9X">
+                                                                    <field name="VAR" id="{wj32),S(OL*1_d6)-)R">
+                                                                        marker4
+                                                                    </field>
+                                                                    <value name="NAME">
+                                                                        <block type="ar_preset"
+                                                                               id="|CL)h@(iRN!!d:v/nnD(">
+                                                                            <field name="preset">hiro</field>
+                                                                        </block>
+                                                                    </value>
+                                                                </block>
+                                                            </next>
+                                                        </block>
+                                                    </next>
+                                                </block>
+                                            </next>
+                                        </block>
+                                    </statement>
+                                </block>
+                            </next>
+                        </block>
+                    </next>
+                </block>
+
+            </xml>
+            <xml xmlns="http://www.w3.org/1999/xhtml" id="workspace13" style="display: none">
+                <variables>
+                    <variable id="*BA+H.NyuvDEVg.eenGh">manager</variable>
+                    <variable id="1w=ex6d(z6iX0iRyInQE">stage1</variable>
+                    <variable id="U^pMw$AlVT~zGKz7F*%m">stage2</variable>
+                    <variable id="N8Bxr{+Dx]GrNHnpITTF">marker1</variable>
+                    <variable id="Fa1r!B*O]F.MBVh#SARd">stage3</variable>
+                    <variable id=".azrJ:=5WWo:T-MP=ux-">modelunion</variable>
+                    <variable id="Ju,}BVo=R.4)R9n:()%v">marker2</variable>
+                    <variable id="irx995+vU2gA2aR6znY)">stage4</variable>
+                    <variable id="}GUu,Ib_gdC3,j_4][`%">modelconf</variable>
+                    <variable id="fw@(e))`skiG8n7c-%yw">marker3</variable>
+                    <variable id="{wj32),S(OL*1_d6)-)R">marker4</variable>
+                </variables>
+                <block type="script" id=",;rv6AFUv/1q%!8gLU/d" x="19" y="-137">
+                    <statement name="content">
+                        <block type="register_component" id="ELP7,amG]m}Q@vqTXaWN">
+                            <field name="VAR" id="*BA+H.NyuvDEVg.eenGh">manager</field>
+                            <statement name="content">
+                                <block type="component_init" id="?g1?Ne6*j-zDf]8Cp1LI">
+                                    <statement name="content">
+                                        <block type="component_init_function" id="2m|y)BEqT`mxw^`m5RIo">
+                                            <field name="VAR" id="1w=ex6d(z6iX0iRyInQE">stage1</field>
+                                            <value name="content">
+                                                <block type="behavior" id="`ab.A%aY$!tKtAOy]I?S">
+                                                    <statement name="NAME">
+                                                        <block type="play_audio" id="{Q:|^%IUz]s{d4~^K+g9">
+                                                            <field name="audio">assets/audio/message01.mp3</field>
+                                                            <next>
+                                                                <block type="display_message"
+                                                                       id="Hjd_nLSjBoMRMPG`Lw^]">
+                                                                    <field name="NAME">Around 8:30 am May 12, 1865
+                                                                        Branson led his men off to attack a
+                                                                        Confederate camp at Palmito Ranch
+                                                                    </field>
+                                                                    <next>
+                                                                        <block type="move_object"
+                                                                               id="QYPueO=xz51U*8?$Cr14">
+                                                                            <field name="VAR"
+                                                                                   id=".azrJ:=5WWo:T-MP=ux-">
+                                                                                modelunion
+                                                                            </field>
+                                                                            <field name="START"
+                                                                                   id="N8Bxr{+Dx]GrNHnpITTF">marker1
+                                                                            </field>
+                                                                            <field name="END"
+                                                                                   id="Ju,}BVo=R.4)R9n:()%v">marker2
+                                                                            </field>
+                                                                            <value name="OFFSET">
+                                                                                <block type="vector3"
+                                                                                       id="6lGjNy)5rlQ^iR^ScBnr">
+                                                                                    <field name="x">0</field>
+                                                                                    <field name="y">0</field>
+                                                                                    <field name="z">0</field>
+                                                                                </block>
+                                                                            </value>
+                                                                            <next>
+                                                                                <block type="set_object_animation"
+                                                                                       id="aJV:K0=EHsTUi8[KeifS">
+                                                                                    <field name="VAR"
+                                                                                           id=".azrJ:=5WWo:T-MP=ux-">
+                                                                                        modelunion
+                                                                                    </field>
+                                                                                    <value name="ANIMATION">
+                                                                                        <block type="animation"
+                                                                                               id="j;uc~m=C^8zBZEX4APKX">
+                                                                                            <field name="ANIMATION">
+                                                                                                Walking
+                                                                                            </field>
+                                                                                        </block>
+                                                                                    </value>
+                                                                                    <next>
+                                                                                        <block type="move_object_finish"
+                                                                                               id="!l|i{7DU(Yd;#I@)Ol$l">
+                                                                                            <field name="VAR"
+                                                                                                   id=".azrJ:=5WWo:T-MP=ux-">
+                                                                                                modelunion
+                                                                                            </field>
+                                                                                            <statement
+                                                                                                    name="content">
+                                                                                                <block type="set_object_animation"
+                                                                                                       id="q_pbiNi[k_9p9+,?#h?0">
+                                                                                                    <field name="VAR"
+                                                                                                           id="}GUu,Ib_gdC3,j_4][`%">
+                                                                                                        modelconf
+                                                                                                    </field>
+                                                                                                    <value name="ANIMATION">
+                                                                                                        <block type="animation"
+                                                                                                               id="~0(4+=WhoQ47J9.+3sw]">
+                                                                                                            <field name="ANIMATION">
+                                                                                                                Attack
+                                                                                                            </field>
+                                                                                                        </block>
+                                                                                                    </value>
+                                                                                                    <next>
+                                                                                                        <block type="set_object_animation"
+                                                                                                               id="`-i]f|J^5_g~jZ*yI;8(">
+                                                                                                            <field name="VAR"
+                                                                                                                   id=".azrJ:=5WWo:T-MP=ux-">
+                                                                                                                modelunion
+                                                                                                            </field>
+                                                                                                            <value name="ANIMATION">
+                                                                                                                <block type="animation"
+                                                                                                                       id="[^)n(+qBN#b5XoDqZ8,8">
+                                                                                                                    <field name="ANIMATION">
+                                                                                                                        Attack
+                                                                                                                    </field>
+                                                                                                                </block>
+                                                                                                            </value>
+                                                                                                            <next>
+                                                                                                                <block type="wait_second"
+                                                                                                                       id="Z@V0{KIe5J]Z1MOY~z2I">
+                                                                                                                    <field name="NAME">
+                                                                                                                        5
+                                                                                                                    </field>
+                                                                                                                    <statement
+                                                                                                                            name="content">
+                                                                                                                        <block type="set_object_animation"
+                                                                                                                               id="C-}tCRs1vaybJmw5F2Mi">
+                                                                                                                            <field name="VAR"
+                                                                                                                                   id=".azrJ:=5WWo:T-MP=ux-">
+                                                                                                                                modelunion
+                                                                                                                            </field>
+                                                                                                                            <value name="ANIMATION">
+                                                                                                                                <block type="animation"
+                                                                                                                                       id=";bAo`sLUSCS*5uy9}6.S">
+                                                                                                                                    <field name="ANIMATION">
+                                                                                                                                        Idle
+                                                                                                                                    </field>
+                                                                                                                                </block>
+                                                                                                                            </value>
+                                                                                                                            <next>
+                                                                                                                                <block type="trigger_behavior"
+                                                                                                                                       id="#NZP-6SE#=+x+v!B-HU-">
+                                                                                                                                    <field name="VAR"
+                                                                                                                                           id="U^pMw$AlVT~zGKz7F*%m">
+                                                                                                                                        stage2
+                                                                                                                                    </field>
+                                                                                                                                </block>
+                                                                                                                            </next>
+                                                                                                                        </block>
+                                                                                                                    </statement>
+                                                                                                                </block>
+                                                                                                            </next>
+                                                                                                        </block>
+                                                                                                    </next>
+                                                                                                </block>
+                                                                                            </statement>
+                                                                                        </block>
+                                                                                    </next>
+                                                                                </block>
+                                                                            </next>
+                                                                        </block>
+                                                                    </next>
+                                                                </block>
+                                                            </next>
+                                                        </block>
+                                                    </statement>
+                                                </block>
+                                            </value>
+                                            <next>
+                                                <block type="component_init_function" id="sAlr=wMzlu9iRb9#5?(F">
+                                                    <field name="VAR" id="U^pMw$AlVT~zGKz7F*%m">stage2</field>
+                                                    <value name="content">
+                                                        <block type="behavior" id="RGs7VImhN{0`uA)%1^%/">
+                                                            <statement name="NAME">
+                                                                <block type="play_audio" id="z^o=:89ps|kuTE=$aAIo">
+                                                                    <field name="audio">assets/audio/message02.mp3
+                                                                    </field>
+                                                                    <next>
+                                                                        <block type="display_message"
+                                                                               id="c_r,_;D@n-RPl*z:aUQc">
+                                                                            <field name="NAME">After much
+                                                                                skirmishing along the way, the
+                                                                                Federals attacked the camp and
+                                                                                scattered the Confederates
+                                                                            </field>
+                                                                            <next>
+                                                                                <block type="move_object"
+                                                                                       id="|THe,*X$4LG]kR4|*l~P">
+                                                                                    <field name="VAR"
+                                                                                           id="}GUu,Ib_gdC3,j_4][`%">
+                                                                                        modelconf
+                                                                                    </field>
+                                                                                    <field name="START"
+                                                                                           id="Ju,}BVo=R.4)R9n:()%v">
+                                                                                        marker2
+                                                                                    </field>
+                                                                                    <field name="END"
+                                                                                           id="fw@(e))`skiG8n7c-%yw">
+                                                                                        marker3
+                                                                                    </field>
+                                                                                    <value name="OFFSET">
+                                                                                        <block type="vector3"
+                                                                                               id="C(VMCzsr(P?r8[ET]sw:">
+                                                                                            <field name="x">0
+                                                                                            </field>
+                                                                                            <field name="y">0
+                                                                                            </field>
+                                                                                            <field name="z">0
+                                                                                            </field>
+                                                                                        </block>
+                                                                                    </value>
+                                                                                    <next>
+                                                                                        <block type="set_object_animation"
+                                                                                               id="gHw=85+4$k1Fw!)!ER{3">
+                                                                                            <field name="VAR"
+                                                                                                   id="}GUu,Ib_gdC3,j_4][`%">
+                                                                                                modelconf
+                                                                                            </field>
+                                                                                            <value name="ANIMATION">
+                                                                                                <block type="animation"
+                                                                                                       id="yl72RL1}SJQ4eQ/[Ll:m">
+                                                                                                    <field name="ANIMATION">
+                                                                                                        Running
+                                                                                                    </field>
+                                                                                                </block>
+                                                                                            </value>
+                                                                                            <next>
+                                                                                                <block type="move_object_finish"
+                                                                                                       id="D:Z@):5A9k#7WD+mErFs">
+                                                                                                    <field name="VAR"
+                                                                                                           id="}GUu,Ib_gdC3,j_4][`%">
+                                                                                                        modelconf
+                                                                                                    </field>
+                                                                                                    <statement
+                                                                                                            name="content">
+                                                                                                        <block type="set_object_animation"
+                                                                                                               id="-(g=6EVo=k8nYdhOIH#8">
+                                                                                                            <field name="VAR"
+                                                                                                                   id="}GUu,Ib_gdC3,j_4][`%">
+                                                                                                                modelconf
+                                                                                                            </field>
+                                                                                                            <value name="ANIMATION">
+                                                                                                                <block type="animation"
+                                                                                                                       id="u4hP~Bjs9l^8%BRpB(u[">
+                                                                                                                    <field name="ANIMATION">
+                                                                                                                        Idle
+                                                                                                                    </field>
+                                                                                                                </block>
+                                                                                                            </value>
+                                                                                                        </block>
+                                                                                                    </statement>
+                                                                                                </block>
+                                                                                            </next>
+                                                                                        </block>
+                                                                                    </next>
+                                                                                </block>
+                                                                            </next>
+                                                                        </block>
+                                                                    </next>
+                                                                </block>
+                                                            </statement>
+                                                        </block>
+                                                    </value>
+                                                </block>
+                                            </next>
+                                        </block>
+                                    </statement>
+                                </block>
+                            </statement>
+                        </block>
+                    </statement>
+                    <next>
+                        <block type="nav_bar" id="a%)T{bOImm]{yfN@0!af">
+                            <field name="POSITION">fixed-top</field>
+                            <statement name="content">
+                                <block type="button" id="R|4fe=BwP3p.-#P10i?A">
+                                    <field name="VAR" id="1w=ex6d(z6iX0iRyInQE">stage1</field>
+                                    <field name="NAME">S1</field>
+                                    <next>
+                                        <block type="button" id="*v^4G^)$S?DfspYx%fGS">
+                                            <field name="VAR" id="U^pMw$AlVT~zGKz7F*%m">stage2</field>
+                                            <field name="NAME">S2</field>
+                                            <next>
+                                                <block type="button" id="a51)P6]MSwih#kIS*Xji">
+                                                    <field name="VAR" id="Fa1r!B*O]F.MBVh#SARd">stage3</field>
+                                                    <field name="NAME">S3</field>
+                                                    <next>
+                                                        <block type="button" id="b#_LfxZ]D46Z?,;vuVMx">
+                                                            <field name="VAR" id="irx995+vU2gA2aR6znY)">stage4
+                                                            </field>
+                                                            <field name="NAME">S4</field>
+                                                        </block>
+                                                    </next>
+                                                </block>
+                                            </next>
+                                        </block>
+                                    </next>
+                                </block>
+                            </statement>
+                            <next>
+                                <block type="ar_scene" id="CZXZmA*4B$hPy;EH,QPN">
+                                    <statement name="content">
+                                        <block type="marker" id="}T-s9_VpRV%4|9;d{9*%">
+                                            <field name="VAR" id="N8Bxr{+Dx]GrNHnpITTF">marker1</field>
+                                            <value name="NAME">
+                                                <block type="ar_pattern" id="2yZ/gFw`t4IL+ppWBpf*">
+                                                    <field name="pattern">assets/patterns/letterA.patt</field>
+                                                </block>
+                                            </value>
+                                            <statement name="content">
+                                                <block type="gltf" id="VL9`UidhqO|:wUWCr5.e">
+                                                    <field name="VAR" id=".azrJ:=5WWo:T-MP=ux-">modelunion</field>
+                                                    <value name="position_vector3">
+                                                        <block type="vector3" id="E?%T1AE=7}Zq~JP]glmt">
+                                                            <field name="x">0</field>
+                                                            <field name="y">0.5</field>
+                                                            <field name="z">0</field>
+                                                        </block>
+                                                    </value>
+                                                    <value name="rotation_vector3">
+                                                        <block type="vector3" id="_F/fRm`9knCG=oOa=z$b">
+                                                            <field name="x">0</field>
+                                                            <field name="y">0</field>
+                                                            <field name="z">0</field>
+                                                        </block>
+                                                    </value>
+                                                    <value name="SOURCE">
+                                                        <block type="src_gltf" id="s3^#koU^CY6E*O@kn1Vb">
+                                                            <field name="src">assets/models/FinalUnion.glb</field>
+                                                        </block>
+                                                    </value>
+                                                </block>
+                                            </statement>
+                                            <next>
+                                                <block type="marker" id="[4$6^=,5UBPoj~PlydB:">
+                                                    <field name="VAR" id="Ju,}BVo=R.4)R9n:()%v">marker2</field>
+                                                    <value name="NAME">
+                                                        <block type="ar_pattern" id="P~_G=~1Iok{;jq)u}TnA">
+                                                            <field name="pattern">assets/patterns/letterB.patt
+                                                            </field>
+                                                        </block>
+                                                    </value>
+                                                    <statement name="content">
+                                                        <block type="gltf" id="8R8!s6vO+RS4X%Wqdpxo">
+                                                            <field name="VAR" id="}GUu,Ib_gdC3,j_4][`%">modelconf
+                                                            </field>
+                                                            <value name="position_vector3">
+                                                                <block type="vector3" id="yA!VJ6IA[-i-txNCrlQY">
+                                                                    <field name="x">0</field>
+                                                                    <field name="y">0.5</field>
+                                                                    <field name="z">0</field>
+                                                                </block>
+                                                            </value>
+                                                            <value name="rotation_vector3">
+                                                                <block type="vector3" id="Fj?s5gI|wwuW3qZ8Vsl|">
+                                                                    <field name="x">0</field>
+                                                                    <field name="y">0</field>
+                                                                    <field name="z">0</field>
+                                                                </block>
+                                                            </value>
+                                                            <value name="SOURCE">
+                                                                <block type="src_gltf" id="3+}5a~Fg*}fAY|VU^//W">
+                                                                    <field name="src">assets/models/confTroop.glb
+                                                                    </field>
+                                                                </block>
+                                                            </value>
+                                                        </block>
+                                                    </statement>
+                                                    <next>
+                                                        <block type="marker" id="DfY=t!FO^0B~MW3{^?yj">
+                                                            <field name="VAR" id="fw@(e))`skiG8n7c-%yw">marker3
+                                                            </field>
+                                                            <value name="NAME">
+                                                                <block type="ar_pattern" id="gkO4:0^5A*!)SV;Lkx=2">
+                                                                    <field name="pattern">
+                                                                        assets/patterns/letterC.patt
+                                                                    </field>
+                                                                </block>
+                                                            </value>
+                                                            <next>
+                                                                <block type="marker" id="rQ:CScBwPhM-nJjbo-9X">
+                                                                    <field name="VAR" id="{wj32),S(OL*1_d6)-)R">
+                                                                        marker4
+                                                                    </field>
+                                                                    <value name="NAME">
+                                                                        <block type="ar_preset"
+                                                                               id="|CL)h@(iRN!!d:v/nnD(">
+                                                                            <field name="preset">hiro</field>
+                                                                        </block>
+                                                                    </value>
+                                                                </block>
+                                                            </next>
+                                                        </block>
+                                                    </next>
+                                                </block>
+                                            </next>
+                                        </block>
+                                    </statement>
+                                </block>
+                            </next>
+                        </block>
+                    </next>
+                </block>
+
+
+            </xml>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal_level1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Tutorial 1</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                In the first tutorial, you will be asked to initialize the Augmented Reality scene. Click on the <code>A-Frame</code>
+                and drag the AR SCENE to the workspace then click the <code>Run Program</code> button.
+                The camera in the visualization area will be triggered
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal_level2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tutorial 2</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                In the second step, you will be asked to put the marker in the scene and associated model once the
+                marker is detected by the camera.
+                Go go A-FRAME/Markers => Drag the <code>marker</code> block inside of the AR scene then drag the
+                A-FRAME/Sample models/Cube inside of the marker. Run the program, after this step
+                you should be able to see the red cube shown on top of the marker. The default marker is Hiro which can
+                be downloaded via this link.
+                Place the marker in front of the camera
+
+                <p></p>
+                <h5>The layout structure of the tool is appropriated</h5>
+                <div class='rating-stars text-center'>
+                    <ul id='stars1'>
+                        <li class='star' title='Poor' data-value='1'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='Fair' data-value='2'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='Good' data-value='3'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='Excellent' data-value='4'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='WOW!!!' data-value='5'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal_level3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tutorial 3</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                In this step, you will be asked to remove the existing cube model and change the marker type from preset
+                to pattern.
+                To change the cube, click on the cube then hit Delete button (or drag it to the trash icon), go to
+                Sample models and drag the GLTF model inside the marker.
+                To change the marker type, delete it, go to Markers then drag the Pattern block and attach it to the old
+                preset pattern
+                <p></p>
+                <p></p>
+                <h5>The layout structure of the tool is appropriated</h5>
+                <div class='rating-stars text-center'>
+                    <ul id='stars2'>
+                        <li class='star' title='Poor' data-value='1'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='Fair' data-value='2'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='Good' data-value='3'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='Excellent' data-value='4'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='WOW!!!' data-value='5'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal_level4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tutorial 4</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                In this step, you are asked to add another marker to the scene. Let add another marker, its content
+                (GLTF model) then set the pattern of the first marker to letter A,
+                the pattern of the second marker to letter B. Run the program, you should be able to see two models
+                sitting on top of the two markers (letter A and letter B)
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal_level5" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tutorial 5</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Let add a button into the scene to control the model. Drag the "Nav-bar" block to the workspace and
+                position it on top of the AR-SCENE block.
+                Run the program, you should be able to see Button 1 appears on top of the visualization's window.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal_level6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tutorial 6</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Let add three more buttons to the scene. (Hint: Drag the button block inside the nav-bar) and change the
+                names of the four buttons to S1, S2, S3, S4 respectively.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal_level7" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tutorial 7</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                This step will init a controller to buttons that you've created in the previous step. Drag the Script
+                block to the workspace on top of the Nav-bar block. You can check if you've done correctly by going to
+                step 9
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal_level8" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tutorial 8</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Since the control block must know which button it refers to, we have to create a unique id for each
+                button. Go to Variables, click on create variables then create 4 variables and named it stage1, stage2, stage3, stage4
+                respectively. Then set the button ID to its associated variable.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="modal_level9" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tutorial 9</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                This step will introduce you a simple behavior when the button 1 is clicked. It will display a "Hello world" message on the screen.
+                Select button id as stage1 in the set button block, then attach the Behaviour block to the Button block. You also need to embed a Display message block inside the behavior.
+
+                Run the program and click on the button S1, You should be able to see the message "Hello world" overlay on the screen.
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="modal_level10" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tutorial 10</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Can you add more behaviours to button 1? such as play an audio, display the message, move an object and change the animations of a given model???
+                <div>
+                    For a logical programming, it  is noted that each object should have an unique id. Try to create an id for each block (e.g., marker's id and model's id)
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal_level11" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tutorial 11</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               Can you create another behavior for button 2 ??
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal_level12" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tutorial 11</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Can you make an auto transition from stage 1 to stage 2? (Hint: Use Trigger Next Behavior block) with Delay time).
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var workspace = Blockly.inject('blocklyArea',
+        {media: 'assets/media/', toolbox: document.getElementById('toolbox')});
+    $(document).ready(function () {
+
+        $("#tutorial").on("click", () => {
+            introJs().start();
+        });
+        $("#tutorial_level1").on("click", function () {
+            $(".nav-link").removeClass("active");
+            $("#tutorial_level1").addClass("active");
+            $('#modal_level1').modal('show')
+            Blockly.mainWorkspace.clear();
+        });
+        $("#tutorial_level2").on("click", function () {
+            $(".nav-link").removeClass("active");
+            $("#tutorial_level2").addClass("active");
+            $('#modal_level2').modal('show')
+            Blockly.mainWorkspace.clear()
+            Blockly.Xml.domToWorkspace(document.getElementById("workspace2"), workspace)
+
+        });
+        $("#tutorial_level3").on("click", function () {
+            $(".nav-link").removeClass("active");
+            $("#tutorial_level3").addClass("active");
+            $('#modal_level3').modal('show')
+
+            Blockly.mainWorkspace.clear()
+            Blockly.Xml.domToWorkspace(document.getElementById("workspace3"), workspace)
+        });
+        $("#tutorial_level4").on("click", function () {
+            $(".nav-link").removeClass("active");
+            $("#tutorial_level4").addClass("active");
+            $('#modal_level4').modal('show')
+            Blockly.mainWorkspace.clear()
+            Blockly.Xml.domToWorkspace(document.getElementById("workspace4"), workspace)
+        });
+        $("#tutorial_level5").on("click", function () {
+            $(".nav-link").removeClass("active");
+            $("#tutorial_level5").addClass("active");
+            $('#modal_level5').modal('show')
+            Blockly.mainWorkspace.clear()
+            Blockly.Xml.domToWorkspace(document.getElementById("workspace5"), workspace)
+        });
+
+        $("#tutorial_level6").on("click", function () {
+            $(".nav-link").removeClass("active");
+            $("#tutorial_level6").addClass("active");
+            $('#modal_level6').modal('show')
+            Blockly.mainWorkspace.clear()
+            Blockly.Xml.domToWorkspace(document.getElementById("workspace6"), workspace)
+        });
+
+        $("#tutorial_level7").on("click", function () {
+            $(".nav-link").removeClass("active");
+            $("#tutorial_level7").addClass("active");
+            $('#modal_level7').modal('show')
+            Blockly.mainWorkspace.clear()
+            Blockly.Xml.domToWorkspace(document.getElementById("workspace7"), workspace)
+        });
+        $("#tutorial_level8").on("click", function () {
+            $(".nav-link").removeClass("active");
+            $("#tutorial_level8").addClass("active");
+            $('#modal_level8').modal('show')
+            Blockly.mainWorkspace.clear()
+            Blockly.Xml.domToWorkspace(document.getElementById("workspace8"), workspace)
+        });
+
+        $("#tutorial_level9").on("click", function () {
+            $(".nav-link").removeClass("active");
+            $("#tutorial_level9").addClass("active");
+            $('#modal_level9').modal('show')
+            Blockly.mainWorkspace.clear()
+            Blockly.Xml.domToWorkspace(document.getElementById("workspace9"), workspace)
+        });
+
+        $("#tutorial_level10").on("click", function () {
+            $(".nav-link").removeClass("active");
+            $("#tutorial_level10").addClass("active");
+            $('#modal_level10').modal('show')
+            Blockly.mainWorkspace.clear()
+            Blockly.Xml.domToWorkspace(document.getElementById("workspace10"), workspace)
+        });
+
+        $("#tutorial_level11").on("click", function () {
+            $(".nav-link").removeClass("active");
+            $("#tutorial_level11").addClass("active");
+            $('#modal_level11').modal('show')
+
+            Blockly.mainWorkspace.clear()
+            Blockly.Xml.domToWorkspace(document.getElementById("workspace11"), workspace)
+        });
+        $("#tutorial_level12").on("click", function () {
+            $(".nav-link").removeClass("active");
+            $("#tutorial_level12").addClass("active");
+            $('#modal_level12').modal('show')
+
+            Blockly.mainWorkspace.clear()
+            Blockly.Xml.domToWorkspace(document.getElementById("workspace12"), workspace)
+        });
+        $("#tutorial_level13").on("click", function () {
+            $(".nav-link").removeClass("active");
+            $("#tutorial_level13").addClass("active");
+            Blockly.mainWorkspace.clear()
+            Blockly.Xml.domToWorkspace(document.getElementById("workspace13"), workspace)
+        });
+
+        $("#runProgram").click(function () {
+
+            let code = HtmlGenerator.workspaceToCode(workspace);
+            let doc = $('#ar_scene').contents();
+            doc.find("body").empty();
+            doc.find("body").append(code)
+        });
+
+        $("#stopProgram").click(function () {
+            $("#stopProgram").addClass("active");
+            let code = "";
+            let doc = $('#ar_scene').contents();
+            doc.find("body").empty();
+            doc.find("body").append(code)
+        })
+
+
+
+        /* 1. Action to perform on mouseover */
+        $('#stars1 li').on('mouseover', function(){
+            var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+            // Now highlight all the stars that's not after the current hovered star
+            $(this).parent().children('li.star').each(function(e){
+                if (e < onStar) {
+                    $(this).addClass('hover');
+                }
+                else {
+                    $(this).removeClass('hover');
+                }
+            });
+
+        }).on('mouseout', function(){
+            $(this).parent().children('li.star').each(function(e){
+                $(this).removeClass('hover');
+            });
+        });
+        /* 2. Action to perform on click */
+        $('#stars1 li').on('click', function(){
+            var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+            var stars = $(this).parent().children('li.star');
+
+            for (i = 0; i < stars.length; i++) {
+                $(stars[i]).removeClass('selected');
+            }
+
+            for (i = 0; i < onStar; i++) {
+                $(stars[i]).addClass('selected');
+            }
+
+            // JUST RESPONSE (Not needed)
+            var ratingValue = parseInt($('#stars1 li.selected').last().data('value'), 10);
+            var msg = "";
+            if (ratingValue > 1) {
+                msg = "Thanks! You rated this " + ratingValue + " stars.";
+            }
+            else {
+                msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+            }
+            //responseMessage(msg);
+
+        });
+
+    });
+
+</script>
+</html>

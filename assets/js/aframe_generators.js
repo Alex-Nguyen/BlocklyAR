@@ -13,9 +13,13 @@ HtmlGenerator.scrub_ = function (block, code) {
 
 HtmlGenerator['ar_scene'] = function (block) {
       let statement_content = HtmlGenerator.statementToCode(block,"content");
-      return `<a-scene manager arjs embedded>\n${statement_content}\n<a-entity camera></a-entity>\n</a-scene>`;
+      let component = HtmlGenerator.valueToCode(block,'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+      return `<a-scene ${component} arjs>\n${statement_content}\n<a-entity camera></a-entity>\n</a-scene>`;
 };
-
+HtmlGenerator['a-entity'] = function (block) {
+    let statement_content = HtmlGenerator.statementToCode(block,"content");
+    return `<a-entity>\n${statement_content}\n</a-entity>\n`;
+};
 HtmlGenerator['nav_bar'] = function (block) {
     let statement_content = HtmlGenerator.statementToCode(block,"content");
     let pos = block.getFieldValue("POSITION");
@@ -49,6 +53,14 @@ HtmlGenerator['ar_pattern'] = function (block) {
     let code = `type='pattern' url='${value}'`
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
 }
+HtmlGenerator['audio-list'] = function (block) {
+    let value = block.getFieldValue("AUDIO");
+    return [value, Blockly.JavaScript.ORDER_ATOMIC];
+}
+HtmlGenerator['text'] = function (block) {
+    let value = `${block.getFieldValue("TEXT")}`;
+    return [value, Blockly.JavaScript.ORDER_ATOMIC];
+}
 
 HtmlGenerator['cube'] = function (block) {
     let pos = HtmlGenerator.valueToCode(block,'position_vector3', Blockly.JavaScript.ORDER_ATOMIC);
@@ -58,6 +70,15 @@ HtmlGenerator['cube'] = function (block) {
     if(rot !=="") rot  = `rotation = '${rot}'`;
 
     return `<a-box color="red" project='visAR' ${pos} ${rot}></a-box>`;
+};
+
+HtmlGenerator['a-box'] = function (block) {
+    let c = block.getFieldValue("COLOUR");
+    let d = block.getFieldValue("DEPTH");
+    let h = block.getFieldValue("HEIGHT");
+    let w = block.getFieldValue("WIDTH");
+
+    return `<a-box color="${c}" depth="${d}" height="${h}" width="${w}"  project='visAR'></a-box>`;
 };
 HtmlGenerator['animation-mixer'] = function (block) {
     let pos = HtmlGenerator.valueToCode(block,'position_vector3', Blockly.JavaScript.ORDER_ATOMIC);
@@ -82,6 +103,13 @@ HtmlGenerator['gltf'] = function (block) {
         block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
     return `<a-gltf-model look-at="[camera]" id="${id}" project='visAR' ${pos} ${rot}${src}${ani}></a-gltf-model>`;
 }
+
+HtmlGenerator['variables_get'] = function(block){
+    Blockly.JavaScript.init(Blockly.mainWorkspace)
+    let id = Blockly.JavaScript.variableDB_.getName(
+        block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+    return [id, Blockly.JavaScript.ORDER_ATOMIC];
+}
 HtmlGenerator['vector3'] = function (block) {
     let x = block.getFieldValue('x');
     let y = block.getFieldValue('y');
@@ -97,6 +125,20 @@ HtmlGenerator['animation-mixer'] = function (block) {
    let code = ` animation-mixer='${statement_content}'`;
    return [code, Blockly.JavaScript.ORDER_ATOMIC]
 }
+
+HtmlGenerator['position'] = function (block) {
+    let value = HtmlGenerator.valueToCode(block,'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
+    let code =`position`;
+    if(value !==null) code+= `=${value}`;
+    return [code, Blockly.JavaScript.ORDER_ATOMIC]
+}
+HtmlGenerator['rotation'] = function (block) {
+    let value = HtmlGenerator.valueToCode(block,'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
+    let code =`rotation`;
+    if(value !==null) code+= `=${value}`;
+    return [code, Blockly.JavaScript.ORDER_ATOMIC]
+}
+
 HtmlGenerator['clip'] = function (block) {
     let lval = block.getFieldValue('clips');
    return `clip: ${lval};`;
@@ -179,7 +221,6 @@ HtmlGenerator['move_object'] = function (block) {
     code += `\n curve${var_object}.appendChild(curvePoint2${var_object});\n`;
     code += `\n scene${var_object}.appendChild(curve${var_object});\n`;
     code += `\n $("#${var_object}").attr("alongpath","curve: #${var_start}${var_end}; dur: 3000; rotate: true; delay: 2000")\n`;
-    console.log(code)
     return code;
 }
 
@@ -208,8 +249,16 @@ HtmlGenerator['trigger_behavior'] = function (block) {
 }
 
 HtmlGenerator['play_audio'] = function (block) {
-    let src = block.getFieldValue("audio")
-    return `\n let audio = new Audio("${src}");\n audio.play()`;
+    let src = HtmlGenerator.valueToCode(block, "AUDIO", Blockly.JavaScript.ORDER_ATOMIC);
+    let code = `\n let audio = new Audio("${src}");`;
+    code += `\n audio.id="playIt${src}"; \n`;
+    code += `\n document.body.appendChild(audio); \n`;
+    code += `\n audio.play();`;
+    return code;
+}
+
+HtmlGenerator['stop_audio'] = function (block) {
+    return `\n $("audio").trigger("pause")`;
 }
 HtmlGenerator['animation'] = function (block) {
     let code = block.getFieldValue("ANIMATION")
@@ -221,10 +270,20 @@ HtmlGenerator['wait_second'] = function (block) {
     let sec = block.getFieldValue("NAME")
     return `\n setTimeout(function(){${statement_content}},${sec*1000})`;
 }
-
 HtmlGenerator['display_message'] = function (block) {
-    let message = block.getFieldValue('NAME');
+    let message = HtmlGenerator.valueToCode(block, "MESSAGE", Blockly.JavaScript.ORDER_ATOMIC);
     let code =`\n$("div#message").remove();\n`;
     code += `\n$('<div id="message" class="fixed-bottom mb-4"><div class="text-center pl-5 pr-5 bg-info message"><h4>${message}</h4></div></div>').appendTo('body');\n`
     return code;
+}
+
+// A-Frame Generator
+
+HtmlGenerator['a-gltf-model'] = function (block) {
+
+    let src = HtmlGenerator.valueToCode(block, "SOURCE", Blockly.JavaScript.ORDER_ATOMIC);
+    Blockly.JavaScript.init(Blockly.mainWorkspace)
+    let id = Blockly.JavaScript.variableDB_.getName(
+        block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+    return `<a-gltf-model look-at="[camera]" id="${id}" project='visAR' ${src}></a-gltf-model>`;
 }

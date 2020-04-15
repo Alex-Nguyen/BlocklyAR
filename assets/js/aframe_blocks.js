@@ -690,13 +690,49 @@ Blockly.defineBlocksWithJsonArray([
             {
                 "type": "field_colour",
                 "name": "COLOUR",
-                "colour": "#ff0000"
+                "colour": "#ffffff"
             },
             {
                 "type": "field_checkbox",
                 "name": "TRANSPARENT",
                 "checked": false
             }
+        ],
+        "previousStatement": "null",
+        "nextStatement": "null",
+        "colour": 265,
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
+        type:"light",
+        message0:"light type %1 color %2 intensity %3",
+        args0:[
+            {
+                type: "field_dropdown",
+                name: "LIGHT",
+                options: [
+                    ["ambient", 'ambient'],
+                    ["directional", 'directional'],
+                    ["hemisphere", 'hemisphere'],
+                    ["point", 'point'],
+                    ["spot", 'spot'],
+
+                ]
+            },
+            {
+                "type": "field_colour",
+                "name": "COLOUR",
+                "colour": "#ffffff"
+            },
+            {
+                "type": "field_number",
+                "name": "INTENSITY",
+                "value": 1,
+                "min": 1,
+                "max": 10,
+                "precision": 1
+            },
         ],
         "previousStatement": "null",
         "nextStatement": "null",
@@ -826,6 +862,23 @@ Blockly.defineBlocksWithJsonArray([
         "colour": 265,
         "tooltip": "",
         "helpUrl": ""
+    },
+    {
+        type:"look-at",
+        message0:"look-at selector %1",
+        args0:[
+            {
+                type:"input_value",
+                name:"VALUE",
+                align: "RIGHT"
+            }
+        ],
+        "previousStatement": "null",
+        "nextStatement": "null",
+        "colour": 265,
+        "tooltip": "The look-at component defines the behavior for an entity to dynamically rotate or face towards another entity or position",
+        "helpUrl": ""
+
     },
 
     // A-Frame primitives

@@ -27,7 +27,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="HTML" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="D:/WAVE SYSTEM" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
@@ -38,6 +38,16 @@
       <recent name="D:\Coding\VisualAR\assets\patterns" />
       <recent name="D:\Coding\VisualAR\assets" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="intro.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/VisualAR/intro.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.intro.html" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -56,11 +66,21 @@
       <workItem from="1584257140590" duration="66197000" />
       <workItem from="1584588580594" duration="53342000" />
       <workItem from="1585178613271" duration="635000" />
+      <workItem from="1585366840117" duration="3220000" />
+      <workItem from="1585569591092" duration="1686000" />
+      <workItem from="1586183264224" duration="12568000" />
+      <workItem from="1586348692476" duration="12359000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1586348708547">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1586348708547" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -82,7 +102,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/assets/js/aframe_blocks.js</url>
-          <line>879</line>
+          <line>932</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>

@@ -129,7 +129,16 @@ HtmlGenerator['animation-mixer'] = function (block) {
 HtmlGenerator['position'] = function (block) {
     let value = HtmlGenerator.valueToCode(block,'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
     let code =`position`;
-    if(value !==null) code+= `=${value}`;
+    if(value !=="") code+= `=${value}`;
+    return [code, Blockly.JavaScript.ORDER_ATOMIC]
+}
+
+HtmlGenerator['look-at'] = function (block) {
+
+    let selector = HtmlGenerator.valueToCode(block,'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
+    let code =`look-at`;
+    // if(vector3 !=="") code+= `="[${vector3}]"`;
+    if(selector !=="") code+= `="#${selector}"`;
     return [code, Blockly.JavaScript.ORDER_ATOMIC]
 }
 HtmlGenerator['rotation'] = function (block) {

@@ -1,3 +1,3 @@
 # visAR
 
-https://alex-nguyen.github.io/visAR/intro.html
+https://alex-nguyen.github.io/BlocklyAR/intro.html

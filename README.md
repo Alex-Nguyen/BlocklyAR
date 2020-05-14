@@ -4,7 +4,6 @@
 https://alex-nguyen.github.io/BlocklyAR/intro.html
 
 ## Please follow this image below for the testing marker: 
-![alt text](https://github.com/Alex-Nguyen/BlocklyAR/blob/master/hiro.png)<!-- .element height="30%" width="30%" -->
-
+<img src="hiro.png" width="100" height="100">
 
 

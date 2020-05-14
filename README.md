@@ -4,7 +4,7 @@
 https://alex-nguyen.github.io/BlocklyAR/intro.html
 ## YouTube demo
 
-[![YouTube Demo](<img src="YouTube.PNG" width="500">)](https://youtu.be/lSsQd8GTcQ8)
+[![YouTube Demo](https://github.com/Alex-Nguyen/BlocklyAR/blob/master/YouTube.PNG)](https://youtu.be/lSsQd8GTcQ8)
 
 
 ## Please follow this image below for the testing marker: 

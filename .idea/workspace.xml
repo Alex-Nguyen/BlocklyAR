@@ -27,16 +27,16 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="HTML" />
-    <property name="last_opened_file_path" value="D:/WAVE SYSTEM" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../BattleFieldAR" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Coding\VisualAR\assets\css" />
       <recent name="D:\Coding\VisualAR" />
       <recent name="D:\Coding\VisualAR\assets\js" />
       <recent name="D:\Coding\VisualAR\assets\markers" />
       <recent name="D:\Coding\VisualAR\assets\patterns" />
-      <recent name="D:\Coding\VisualAR\assets" />
     </key>
   </component>
   <component name="RunManager">
@@ -70,6 +70,9 @@
       <workItem from="1585569591092" duration="1686000" />
       <workItem from="1586183264224" duration="12568000" />
       <workItem from="1586348692476" duration="12359000" />
+      <workItem from="1587338995101" duration="652000" />
+      <workItem from="1588840748679" duration="781000" />
+      <workItem from="1589208893474" duration="24161000" />
     </task>
     <servers />
   </component>
@@ -77,10 +80,11 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1586348708547">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1589215944137">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1586348708547" />
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1589215944137" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

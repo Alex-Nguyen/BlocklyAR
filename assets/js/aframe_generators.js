@@ -14,7 +14,7 @@ HtmlGenerator.scrub_ = function (block, code) {
 HtmlGenerator['ar_scene'] = function (block) {
       let statement_content = HtmlGenerator.statementToCode(block,"content");
       let component = HtmlGenerator.valueToCode(block,'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-      return `<a-scene ${component} arjs>\n${statement_content}\n<a-entity camera></a-entity>\n</a-scene>`;
+      return `<a-scene ${component} vr-mode-ui="enabled: false" arjs ="debugUIEnabled: false">\n${statement_content}\n<a-entity camera></a-entity>\n</a-scene>`;
 };
 HtmlGenerator['a-entity'] = function (block) {
     let statement_content = HtmlGenerator.statementToCode(block,"content");
@@ -282,7 +282,7 @@ HtmlGenerator['wait_second'] = function (block) {
 HtmlGenerator['display_message'] = function (block) {
     let message = HtmlGenerator.valueToCode(block, "MESSAGE", Blockly.JavaScript.ORDER_ATOMIC);
     let code =`\n$("div#message").remove();\n`;
-    code += `\n$('<div id="message" class="fixed-bottom mb-4"><div class="text-center pl-5 pr-5 bg-info message"><h4>${message}</h4></div></div>').appendTo('body');\n`
+    code += `\n$('<div id="message" class="fixed-bottom"><div class="text-center pl-5 pr-5 bg-info message">${message}</div></div>').appendTo('body');\n`
     return code;
 }
 
